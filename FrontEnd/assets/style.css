@@ -125,6 +125,24 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.filter{
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 51px;
+}
+.filter button{
+	font-size: 16px;
+	font-weight: 700;
+	Font-family: Syne;
+	color: #1D6154;
+	border-color: #1D6154;
+	border-style: solid;
+	border-radius: 20px;
+	padding: 0px 20px 0px 20px;
+	height:37px;
+
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -186,3 +204,61 @@ footer nav ul {
 	margin: 2em
 }
 
+/* -------------page LOGIN---------------------- */
+main{
+	display: flex;
+	justify-content: center;
+}
+.login{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 379px;
+	height:800px ;
+}
+.login input{
+	width: 100%;
+	
+}
+.login h2{
+	margin-left: auto;
+	margin-right: auto;
+	padding-bottom: 50px;
+}
+.login h3{
+	font-size: 14px;
+	font-weight: 500;
+	font-family: work sans-serif;
+	padding-bottom: 7px;
+}
+.login__form{
+	padding-bottom: 40px;
+}
+
+#email,#password{
+	width: 379px;
+	padding-bottom: 30px;
+}
+.email , .password{
+	height: 51px;
+	border-color: rgba(0, 0, 0, 0);
+	box-shadow: #d9d9d9 3px 3px 10px 2px;
+}
+#connect{
+	font-size: 14px;
+	font-weight: 700;
+	width: 179px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#connect input{
+	height: 36px;
+}
+.forgetpassword {
+    display: flex;
+	justify-content: center;
+}
+.forgetpassword a{
+	text-decoration: none;
+	color:black;
+}
