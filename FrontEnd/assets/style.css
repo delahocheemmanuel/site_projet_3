@@ -98,6 +98,9 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+a {
+	text-decoration: none;
+}
 #introduction {
 	display: flex;
 	align-items: center;
@@ -205,7 +208,7 @@ footer nav ul {
 }
 
 /* -------------page LOGIN---------------------- */
-main{
+#main__login{
 	display: flex;
 	justify-content: center;
 }
@@ -240,6 +243,7 @@ main{
 	padding-bottom: 30px;
 }
 .email , .password{
+	
 	height: 51px;
 	border-color: rgba(0, 0, 0, 0);
 	box-shadow: #d9d9d9 3px 3px 10px 2px;
