@@ -8,11 +8,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/login.css">
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>
@@ -31,33 +31,22 @@
 	</nav>
 </header>
 <main>
-    <div id="main__login" >
-    <section class="login" >
-        <h2>Log in</h2>
-        <form class="login__form" >
-            <div id="email" >
-                <h3>E-mail</h3>
-            <input name="email" type="email" class="email">
-            </div>
-            <div id="password" >
-                <h3>Mot de passe</h3>
-            <input name="password" type="password" class="password" >
-            </div>
-            <div id="connect" >
-                <a href="#" >
-                <input class="connect" type="submit" value="Se connecter" ></input>
-            </a>
-            </div>
-            <div class="forgetpassword" >
-            <a href="#">mot de passe oublié</a>
-            </div>
-        </form>
-    </div>
-    </section>
+	<section id="contact">
+		<h2>Log in</h2>
+		<form action="login.html" method="post">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email">
+			<label for="password">Mot de passe</label>
+			<input type="password" name="password" id="password">
+			<div id="msgdiv"></div>
+			<input type="submit" value="Se connecter">
+			<a href="#">Mot de passe oublié</a>
+		</form>
+	</section>
 	
 </main>
 
-<footer>
+<footer class="foot__log" >
 	<nav>
 		<ul>
 			<li>Mentions Légales</li>
