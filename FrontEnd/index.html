@@ -9,16 +9,19 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+    <script src="works.js"> defer</script>
+    <script src="categories.js"> defer</script>
+    <script src="https://kit.fontawesome.com/f56a26aebc.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
+	<a href="./index.html" >
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	</a>
 	<nav>
 		<ul>
 			<li>
-				<a href="./index.html" >
 				projets
-			    </a>
 			</li>
 			<li>contact</li>
 			<li>
@@ -45,10 +48,10 @@
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
 		<div class="filter">
-			<button>Tous</button>
-			<button>Objets</button>
-			<button>Appartements</button>
-			<button>Hôtels&restaurants</button>
+			<button class="all" >Tous</button>
+			<button class="objets">Objets</button>
+			<button class="apparts">Appartements</button>
+			<button class="hotels">Hôtels&restaurants</button>
 		</div>
 		<div class="gallery">
 			<figure>
@@ -103,7 +106,7 @@
 		<form action="#" method="post">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
+			<label for="email">E-mail</label>
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
@@ -119,6 +122,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="categories.js"></script>
+
 </body>
 </html>

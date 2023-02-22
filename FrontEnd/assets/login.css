@@ -49,14 +49,30 @@ table {
 /** end reset css**/
 body {
 	max-width: 1440px;
+    height: 100%;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+    display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	box-sizing: border-box;
 }
 header {
 	display: flex;
+    flex-wrap: wrap;
 	justify-content: space-between;
 	margin: 50px 0;
+    width: 80%;
+    padding-left:10%;
+    padding-right: 10%;
+}
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0 auto;
+	width: 100%;
 }
 section {
 	margin: 50px 0
@@ -103,13 +119,14 @@ a {
 }
 
 #contact {
-	width: 50%;
-margin: auto;
+    max-width: 379px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    
+   
 }
-#contact > * {
-	text-align: center;
 
-}
 #contact h2{
 	margin-bottom: 20px;
 }
@@ -118,63 +135,15 @@ margin: auto;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
-	margin: 2em 0 1em 0;
-}
-#contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
-}
-
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
-}
-
-/* -------------page LOGIN---------------------- */
-body{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	height: 100%;
-}
-
-main {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
-	width: 100%;
-}
-#contact {
-    max-width: 379px;
-	width: 80%;
-	margin-top: 100px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
 #contact input[type='submit'] {
     padding: 0px 10px 0px 10px;
     min-width: 100px;
@@ -191,7 +160,6 @@ main {
 	align-items: flex-end;
 	width: 380px;
 	height: 37px;
-    margin: 0;
 	padding: 0 0 10px 0;
 	font-weight: 500;
 }
@@ -199,6 +167,21 @@ main {
 	margin: auto;
 }
 
+#contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
 footer {	
 	display: flex;	
 	justify-content: flex-end;
@@ -208,3 +191,7 @@ footer {
     right: 0;
     bottom: 0;
 	}
+footer nav ul {
+
+	margin: 2em
+}
