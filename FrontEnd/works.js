@@ -1,6 +1,36 @@
 
 
+async function loadGallery(categorieId) {
+    await fetch("http://localhost:5678/api/works")
+    .then(function(res) {
+        return res.json();
+    })
+    .then(function(value) {
+        const entries = value.length;
+        // clean  gallery
+        newGalerie.innerHTML = "";
+        for(let n = 0; n < entries; n++)
+        {
+            let imgId = value[n].id;
+            let imgUrl = value[n].imageUrl;
+            let imgName = value[n].title;
+            let imgCatId = value[n].category.id;
+            
+            categorieId == imgCatId || !categorieId ? newFigure(imgUrl, imgName, imgId) : "";
+            
+        }
+    })
+    
+    .catch(function(err) {
+        console.log(err);
+    });
+    
+}
 
+// Affichage galery
+window.onload = function(){
+    loadGallery();
+}
 
 
 /**
@@ -32,40 +62,7 @@ function newFigure(imgUrl, imgTitle, imgId) {
     
 }
 
-function loadGallery(categorieId) {
-    fetch("http://localhost:5678/api/works")
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(value) {
-        const entries = value.length;
-        // clean  gallery
-        newGalerie.innerHTML = "";
-        for(let n = 0; n < entries; n++)
-        {
-            let imgId = value[n].id;
-            let imgUrl = value[n].imageUrl;
-            let imgName = value[n].title;
-            let imgCatId = value[n].category.id;
-            
-            categorieId == imgCatId || !categorieId ? newFigure(imgUrl, imgName, imgId) : "";
-        }
-    })
-    
-    .catch(function(err) {
-        console.log(err);
-    });
-}
 
-
-
-
-
-
-// Affichage galery
-window.onload = function(){
-    loadGallery();
-}
 
 
 

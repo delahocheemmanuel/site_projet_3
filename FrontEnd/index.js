@@ -15,10 +15,13 @@ galerie.remove();
 
 // Création de la nouvelle gallery
 const portfolioBox = document.querySelector("#portfolio");
-newDiv = document.createElement("div");
+newDiv = document.createElement("article");
 portfolioBox.appendChild(newDiv);
 
 
 // Application de la class gallery
-const newGalerie = document.querySelector("#portfolio div");
+const newGalerie = document.querySelector("#portfolio article");
 newGalerie.classList.add("gallery");
+
+
+  

@@ -1,12 +1,4 @@
-
-
-
-// Appel des catégories . création des btn filtre
-
-
 fetch('http://localhost:5678/api/categories')
-
-
     .then(function (res) {
         return res.json();
     })
@@ -18,6 +10,13 @@ fetch('http://localhost:5678/api/categories')
             let categorieId = value[n].id;
             newBouton(cateName, categorieId, categorieOnClick);
         }
+        
+        // Code pour mettre les boutons en blanc
+        let btns = document.querySelectorAll('input[type="submit"]');
+        btns.forEach(function (btn) {
+          btn.style.backgroundColor = 'white';
+          btn.style.color = '#1D6154';
+        });
     })
     .catch(function (err) {
         console.log(err);
@@ -34,15 +33,16 @@ function newBouton(btnName, categorieId, categorieOnClick) {
     newBtn.addEventListener('click', categorieOnClick);
     let currentForm = document.querySelector('#formBtn');
     currentForm.appendChild(newBtn);
-
+     // e=event   
+     newBtn.addEventListener('mouseout', function (e) {
+        e.target.style.backgroundColor = 'white';
+        e.target.style.color = '#1D6154';
+    });
     newBtn.addEventListener('mouseover', function (e) {
         e.target.style.backgroundColor = '#1D6154';
         e.target.style.color = 'white';
     });
-    newBtn.addEventListener('mouseout', function (e) {
-        e.target.style.backgroundColor = '#FFFEF8';
-        e.target.style.color = '#1D6154';
-    });
+    
 }
 
 // bouton Tous
@@ -52,6 +52,5 @@ newBouton('Tous', '', categorieOnClick);
 function categorieOnClick(e) {
     e.preventDefault();
     let categorieDataId = e.target.getAttribute('data-categorie-id');
-
     loadGallery(categorieDataId);
 }

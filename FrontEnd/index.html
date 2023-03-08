@@ -8,28 +8,45 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="index.js" defer></script>
 	<script src="works.js" defer></script>
 	<script src="categories.js" defer></script>
-	<script src="edition.js" defer></script>
+	
 	
 </head>
 <body>
 <header>
+	<div id="header__edit">
+			<aside id="edit">
+		<i class="fas fa-edit"></i>
+		<p>Mode édition</p>
+			</aside> 
+        <input id="publish" type="submit" value="publier les changements"></input>
+	       </div>
 	<a href="./index.html" >
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	</a>
 	<nav>
 		<ul>
 			<li>
+				<a href="#portfolio" >
 				projets
+			    </a>
 			</li>
-			<li>contact</li>
+			<li>
+				<a href="#contact" >
+				contact
+			    </a>
+			</li>
 			<li>
 				<a href="./login.html" >
 				login
 			    </a>
+				<a href="#" id="logout" >
+					logout
+				</a>
 			</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
@@ -37,8 +54,17 @@
 </header>
 <main>
 	<section id="introduction">
+		
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="photo-sophie-bluel">
+			<aside class="intro__modif" >
+				
+					<div class="modif">
+				<i class="fas fa-edit"></i>
+				<p>modifier</p>
+					</div>
+				  
+			</aside>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -46,11 +72,24 @@
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
+	    
+		
+	</section >
+	<section id=modal>
+
 	</section>
 	<section id="portfolio">
+		<div id="projet__modif" >
 		<h2>Mes Projets</h2>
 		
-		<div class="gallery">
+			
+				<div class="modif">
+			<i class="fas fa-edit"></i>
+			<p>modifier</p>
+				</div>
+			  
+		</div>
+		<article class="gallery">
 			<figure>
 				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
 				<figcaption>Abajour Tahina</figcaption>
@@ -95,7 +134,7 @@
 				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
 				<figcaption>Hotel First Arte - New Delhi</figcaption>
 			</figure>
-		</div>
+		</article>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
