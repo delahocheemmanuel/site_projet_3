@@ -11,12 +11,12 @@ fetch('http://localhost:5678/api/categories')
             newBouton(cateName, categorieId, categorieOnClick);
         }
         
-        // Code pour mettre les boutons en blanc
-        let btns = document.querySelectorAll('input[type="submit"]');
-        btns.forEach(function (btn) {
-          btn.style.backgroundColor = 'white';
-          btn.style.color = '#1D6154';
-        });
+         // Code pour mettre les boutons en blanc dans la section #portfolio
+         let portfolioBtns = document.querySelectorAll('#portfolio input[type="submit"]');
+         portfolioBtns.forEach(function (btn) {
+           btn.style.backgroundColor = 'white';
+           btn.style.color = '#1D6154';
+         });
     })
     .catch(function (err) {
         console.log(err);
