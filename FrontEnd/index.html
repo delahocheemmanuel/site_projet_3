@@ -10,21 +10,34 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="index.js" defer></script>
-	<script src="works.js" defer></script>
-	<script src="categories.js" defer></script>
+	<script src="./index.js" defer></script>
+	<script src="./works.js" defer></script>
+	<script src="./categories.js" defer></script>
 	
 	
 </head>
 <body>
 <header>
-	<div id="header__edit">
-			<aside id="edit">
+
+	<div id="header__edit" class="edit__mode">
+			<div id="edit" class="edit__mode">
 		<i class="fas fa-edit"></i>
 		<p>Mode édition</p>
-			</aside> 
-        <input id="publish" type="submit" value="publier les changements"></input>
+			</div> 
+        <input id="publish" type="submit" value="publier les changements"class="edit__mode" ></input>
 	       </div>
+		   <!-- MODALE "editMode" utilisateur authentifié -->
+	<!-- Conteneur de la modale -->
+	<div id="modal" class="edit__mode">
+
+		<!-- Contenu de la modale "Gestion des projets avec suppression possible si authentifié" -->
+		<div class="modal__content">
+			<div class="modal__close">
+				<!-- Bouton pour fermer la modale -->
+				<button class="modal__close__button"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+		</div>
+	</div>		
 	<a href="./index.html" >
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	</a>
@@ -41,10 +54,10 @@
 			    </a>
 			</li>
 			<li>
-				<a href="./login.html" >
+				<a href="./login.html" id="login" class="edit__mode">
 				login
 			    </a>
-				<a href="#" id="logout" >
+				<a href="#" id="logout" class="edit__mode">
 					logout
 				</a>
 			</li>
@@ -58,13 +71,14 @@
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="photo-sophie-bluel">
 			<div id="intro__modif" >
-					<div id="i__modif">
+					<div id="i__modif"class="edit__mode">
 				<i class="fas fa-edit"></i>
 				<p>modifier</p>
 					</div>  
 			</div>
 		</figure>
-		<article><div class="desc__modif" >	
+		<article>
+			<div id="desc__modif" class="edit__mode">	
 			<div id="d__modif"><i class="fas fa-edit"></i><p>modifier</p></div>	
 	    </div>
 			<h2>Designer d'espace</h2>
@@ -75,11 +89,8 @@
 	    
 		
 	</section >
-	<section id=modal>
-
-	</section>
 	<section id="portfolio">
-		<div class="projet__modif" >	
+		<div id="projet__modif" class="edit__mode" style="display: none;" >	
 		    <h2 class="title__projet">Mes Projets</h2>
 			<div id="p__modif"><i class="fas fa-edit"></i><p>modifier</p></div>	
 	    </div>
