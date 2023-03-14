@@ -1,4 +1,3 @@
-// Récupération des informations d'authentification à partir du FORM de LOGIN.HTML
 const formInfos = document.querySelector('form');
 
 // Fonction d'authentification à partir des informations de l'API
@@ -41,3 +40,18 @@ formInfos.addEventListener('submit', async function (event) {
             "Nom d'utilisateur ou mot de passe incorrect.";
     }
 });
+
+function logout() {
+    sessionStorage.removeItem('authentificationToken');
+    sessionStorage.removeItem('authentificationState');
+    window.location.replace('login.html');
+  }
+  
+
+const authentificationState = sessionStorage.getItem('authentificationState');
+
+if (authentificationState === 'true') {
+  console.log('Session ouverte');
+} else {
+  console.log('Session fermée');
+}
