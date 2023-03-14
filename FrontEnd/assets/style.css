@@ -406,6 +406,7 @@ footer nav ul {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
+    
   }
   .modal__content {
 	display:flex;
@@ -413,7 +414,7 @@ footer nav ul {
 	align-items: center;
 	position: absolute;
 	box-sizing: border-box;
-	width: 630px;
+	width: 637px;
 	height: 730px;
 	overflow: auto;
 	background-color: #FFFFFF;
@@ -475,6 +476,10 @@ border-top: 1px solid #B3B3B3;
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
+    }
+    .modal__content , .modal__content__form{
+        width: 90%;
+        height: 80%;
     }
     #introduction {
         flex-direction: column;

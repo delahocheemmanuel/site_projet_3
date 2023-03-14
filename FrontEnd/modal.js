@@ -1,5 +1,3 @@
-
-
 function openModal() {
     const modal = document.querySelector('#modal');
     modal.style.display = 'flex';
@@ -15,3 +13,22 @@ function openModal() {
       }
     });
   }
+  
+  function openModalContentForm() {
+    const modal = document.querySelector('.modal__content__form');
+    modal.style.display = 'flex';
+  
+    const returnButtonContentForm = document.querySelector('.modal__content__return__button');
+    returnButtonContentForm.addEventListener('click', function() {
+      modal.style.display = 'none';
+    })
+  
+    const closeButtonContentForm = document.querySelector('.modal__content__close__button');
+    closeButtonContentForm.addEventListener('click', function() {
+      modal.style.display = 'none';
+      window.location.href = 'index.html';
+    });
+  }
+  
+
+  
