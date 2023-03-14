@@ -46,6 +46,12 @@ function logout() {
     sessionStorage.removeItem('authentificationState');
     window.location.replace('login.html');
   }
+
+ //-----------------------------------------------------
+ //------------------EDITMODE---------------------------
+ //-----------------------------------------------------
+ 
+ 
 // Récupérer tous les éléments avec la classe "edit__mode"
 const editModeElements = document.querySelectorAll('.edit__mode');
 // affichage ou non du lien id login
@@ -68,6 +74,7 @@ if (authentificationState === 'true') {
 
   });
 }
+
 
 
 
