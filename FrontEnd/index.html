@@ -61,15 +61,19 @@
 		<div class="modal__content">
 			<div class="modal__close">
 				<!-- Bouton pour fermer la modale -->
+				<!-- la modale se ferme aussi avec un clic exterieur à la modale -->
 				<button class="modal__close__button"><i class="fa-solid fa-xmark"></i></button>
 			</div>
-			<!-- Gallerie  édition -->
+			<!-- Gallerie  édition charge la gallerie qui se trouve dans http://localhost:5678/api/works-->
 			<div class="modal__gallery">
 				<h3>Galerie photo</h3>
 				<div class="modal__gallery__grid"></div>
 			</div>
-			<input class="modal__add__button"type="submit"onclick="openModalContentForm()" value="Ajouter une photo">
+			<!-- ouvre  modal__form-->
+			<input class="modal__add__gallery__button"type="submit" value="Ajouter une photo">
 			<br>
+			<!-- suprimme les element de la gallery  de modal__gallery__grid -->
+			<!-- curl -X 'DELETE' \'http://localhost:5678/api/works/1' \-H 'accept: */*' -->
 			<button class="modal__delete__gallery__button">Supprimer la galerie</button>
 		</div>
 		<!-- Contenu de la modale "Ajout de projet"-->
@@ -85,21 +89,25 @@
 				<h3>Ajout photo</h3>
 				<!-- Formulaire "Ajout de projet"-->
 				<form>
-					<div class="project-photo-file-add-container">
-						<i class="fa-regular fa-image project-photo-file-add-icone"></i>
-						<label for="project-photo-file-add-input" class="project-photo-file-add-button">+ Ajouter photo</label>
-						<!-- <button class="project-photo-file-add-button">+ Ajouter photo</button> -->
-						<input type="file" name="project-photo-file-add-input" id="project-photo-file-add-input" required accept=".jpg, .png">
-						<p class="project-photo-file-add-description">jpg, png : 4mo max</p>
+					<!-- l'ajout se fait par un POST  http://localhost:5678/api/works-->
+					<!-- image=string($binary)  title=string  category=integer($int64)  -->
+					<div class="project__photo__add">
+						<i class="fa-regular fa-image project__photo__add__icon"></i>
+						<button class="project__photo__add__button">+ Ajouter photo</button>
+						<input type="file" name="project__photo__add__input" id="project__photo__add__input" required accept=".jpg, .png">
+						<p class="project__photo__add__desc">jpg, png : 4mo max</p>
 					</div>
-					<label for="project-title">Titre</label>
-					<input type="text" name="project-title" id="project__title" required>
+					<!-- les catégories se trouvent dans http://localhost:5678/api/categories -->
+					<!-- [{"id":1,"name":"Objets"},{"id":2,"name":"Appartements"},{"id":3,"name":"Hotels & restaurants"}] -->
+					<label for="project__title">Titre</label>
+					<input type="text" name="project__title" id="project__title" required>
 					<label for="project__category">Catégorie</label>
 					<select name="project__category" id="project__category" required>
 						<option value=""></option>
 						<!-- Insertion des "Categories" -->
 					</select>
 					<hr>
+					<!-- authentification sur  http://localhost:5678/api/users/login-->
 					<button class="valid__form">Valider</button>
 				</form>
 			</div>
@@ -132,7 +140,7 @@
 	<section id="portfolio">
 		<div id="projet__modif">	
 		    <h2 class="title__projet">Mes Projets</h2>
-			<a href="#"  id="p__modif" class="edit__mode"onclick="openModal()" ><i class="fas fa-edit"></i><p>modifier</p></a>	
+			<a href="#"  id="p__modif" class="edit__mode"><i class="fas fa-edit"></i><p>modifier</p></a>	
 	    </div>
 		<article class="gallery">
 			<figure>

@@ -1,260 +1,244 @@
+ //-----------------------------------------------------
+ //------------------EDITMODE---------------------------
+ //-----------------------------------------------------
+ 
+ 
+// Récupérer tous les éléments avec la classe "edit__mode"
+const editModeElements = document.querySelectorAll('.edit__mode');
+// affichage ou non du lien id login
+const loginElement = document.querySelector('#login');
 
+const authentificationState = sessionStorage.getItem('authentificationState');
 
-
-// Création du form de filtre
-const newForm = document.createElement('form');
-newForm.setAttribute('action', '#');
-newForm.setAttribute('method', 'get');
-newForm.setAttribute('id', 'formBtn');
-
-let currentDiv = document.querySelector('#portfolio');
-currentDiv.appendChild(newForm);
-
-// Suppression de la gallery #portfolio
-const galerie = document.querySelector('#portfolio .gallery');
-galerie.remove();
-
-// Création de la nouvelle gallery
-const portfolioBox = document.querySelector('#portfolio');
-newDiv = document.createElement('article');
-portfolioBox.appendChild(newDiv);
-
-// Application de la class gallery
-const newGalerie = document.querySelector('#portfolio article');
-newGalerie.classList.add('gallery');
-
-// Fonction pour créer des boutons de catégories
-function newBouton(btnName, categorieId, categorieOnClick) {
-  let newBtn = document.createElement('input');
-  newBtn.setAttribute('type', 'submit');
-  newBtn.setAttribute('value', btnName);
-  newBtn.setAttribute('class', 'removeAtEdit');
-  newBtn.setAttribute('data-categorie-id', categorieId);
-
-  newBtn.addEventListener('click', categorieOnClick);
-  let currentForm = document.querySelector('#formBtn');
-  currentForm.appendChild(newBtn);
-
-  // Gestion des événements pour changer la couleur des boutons au survol
-  newBtn.addEventListener('mouseout', function (e) {
-      if (!e.target.classList.contains('active')) {
-          e.target.style.backgroundColor = 'white';
-          e.target.style.color = '#1D6154';
-      }
+if (authentificationState === 'true') {
+  console.log('Session ouverte');
+  // Pour chaque élément, changer le style pour passer de "display: none" à "display: flex"
+  editModeElements.forEach(element => {
+    element.style.display = 'flex';
+    loginElement.style.display = 'none';
   });
-  newBtn.addEventListener('mouseover', function (e) {
-      if (!e.target.classList.contains('active')) {
-          e.target.style.backgroundColor = '#1D6154';
-          e.target.style.color = 'white';
-      }
+} else {
+  console.log('Session fermée');
+  // Pour chaque élément, changer le style pour passer de "display: flex" à "display: none"
+  editModeElements.forEach(element => {
+    element.style.display = 'none';
+
   });
 }
-
-// Définir la couleur des boutons à l'initialisation
-document
-  .querySelectorAll('#formBtn input[type="submit"]')
-  .forEach(function (btn) {
-      btn.style.backgroundColor = 'white';
-      btn.style.color = '#1D6154';
-  });
-
-
-// Charger les boutons de catégories
-fetch('http://localhost:5678/api/categories')
-  .then(function (res) {
-      return res.json();
-  })
-  .then(function (value) {
-      const entries = value.length;
-
-      for (let n = 0; n < entries; n++) {
-          let cateName = value[n].name;
-          let categorieId = value[n].id;
-          newBouton(cateName, categorieId, categorieOnClick);
-      }
-  })
-  .catch(function (err) {
-      console.log(err);
-  });
-
-// Bouton pour afficher toutes les catégories
-newBouton('Tous', '', categorieOnClick);
-
-// Fonction de filtrage de la galerie
-function categorieOnClick(e) {
-  e.preventDefault();
-  let categorieDataId = e.target.getAttribute('data-categorie-id');
-  loadGallery(categorieDataId);
-  setActiveButton(e.target);
-}
-
-// Fonction pour définir le bouton actif
-function setActiveButton(activeBtn) {
-  let buttons = document.querySelectorAll('#formBtn input[type="submit"]');
-  buttons.forEach(function (btn) {
-      btn.classList.remove('active');
-      btn.style.backgroundColor = 'white';
-      btn.style.color = '#1D6154';
-  });
-  activeBtn.classList.add('active');
-  activeBtn.style.backgroundColor = '#1D6154';
-  activeBtn.style.color = 'white';
-}
-
-// Charger la galerie au chargement de la page
-document.addEventListener('DOMContentLoaded', function () {
-  loadGallery('');
-});
-window.addEventListener('load', function () {
-  // Définir la couleur des boutons
-  document
-      .querySelectorAll('#formBtn input[type="submit"]')
-      .forEach(function (btn) {
-          btn.style.backgroundColor = 'white';
-          btn.style.color = '#1D6154';
-      });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------  
-//-----------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
 
-  async function loadGallery(categorieId) {
-    await fetch('http://localhost:5678/api/works')
-        .then(function (res) {
-            return res.json();
-        })
-        .then(function (value) {
-            const entries = value.length;
-            // clean  gallery
-            newGalerie.innerHTML = '';
-            for (let n = 0; n < entries; n++) {
-                let imgId = value[n].id;
-                let imgUrl = value[n].imageUrl;
-                let imgName = value[n].title;
-                let imgCatId = value[n].category.id;
-
-                categorieId == imgCatId || !categorieId
-                    ? newFigure(imgUrl, imgName, imgId)
-                    : '';
-            }
-        })
-
-        .catch(function (err) {
-            console.log(err);
-        });
-}
-
-// Affichage galery
-window.onload = function () {
-    loadGallery();
-};
-
-/**
- * creation portfolio
- * @param {URL} imgUrl
- * @param {string} imgTitle
- * @param {number} imgId
- */
-
-function newFigure(imgUrl, imgTitle, imgId) {
-    let newFig = document.createElement('figure');
-    newGalerie.appendChild(newFig);
-    newFig.setAttribute('data-id', imgId);
-    newImg = document.createElement('img');
-    newImg.crossOrigin = 'anonymous';
-    newFig.appendChild(newImg);
-    newFigCap = document.createElement('figcaption');
-    newFig.appendChild(newFigCap);
-
-    newImg.setAttribute('src', imgUrl);
-    newImg.setAttribute('alt', imgTitle);
-
-    newFigCap.innerHTML += imgTitle;
-    newFigCap.setAttribute('data-id', imgId);
-}
-
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------  
-//-----------------------------------------------------------------------------------------
-
-// open modal avec la balise <a> id=p__modif onclick
 
 
-function openModal() {
-  const modal = document.querySelector('#modal');
-  modal.style.display = 'flex';
-
-  const closeButton = document.querySelector('.modal__close__button');
-  closeButton.addEventListener('click', function() {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-}
-
-function openModalContentForm() {
-  const modal = document.querySelector('.modal__content__form');
-  modal.style.display = 'flex';
-
-  const returnButtonContentForm = document.querySelector('.modal__content__return__button');
-  returnButtonContentForm.addEventListener('click', function() {
-    modal.style.display = 'none';
-  })
 
   const closeButtonContentForm = document.querySelector('.modal__content__close__button');
   closeButtonContentForm.addEventListener('click', function() {
     modal.style.display = 'none';
     window.location.href = 'index.html';
-  });
-}
+  }); 
 
-async function loadMiniGallery() {
-  try {
-    const response = await fetch('http://localhost:5678/api/works');
-    const data = await response.json();
-    
-    // Ici, vous pouvez utiliser les données pour créer la galerie
-    const galleryContainer = document.querySelector('.modal__gallery');
-    // Exemple d'utilisation des données pour créer des éléments HTML représentant chaque image dans la galerie
-    data.forEach((image) => {
-      const imageElement = document.createElement('img');
-      imageElement.src = image.url;
-      galleryContainer.appendChild(imageElement);
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//---------------------------------------------------------------------------------------
+
+const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
+const modalOpenButtonProject = document.getElementById('p__modif');
+
+
+modalOpenButtonProject.addEventListener('click', () => {
+  fetch('http://localhost:5678/api/works')
+    .then(response => response.json())
+    .then(data => {
+      
+
+      // On boucle sur les éléments de la galerie pour les ajouter à la grille
+      data.forEach(item => {
+        const img = document.createElement('img');
+        img.src = item.url;
+        modalGalleryGrid.appendChild(img);
+      });
+
+      // On affiche la modale
+      modal.style.display = 'flex';
+    })
+    .catch(error => console.error(error));
+});
+
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//---------------------------------------------------------------------------------------
+// Récupération des éléments HTML
+const modal = document.querySelector('.modal');
+const modalContent = document.querySelector('.modal__content');
+const modalCloseButton = document.querySelector('.modal__close__button');
+const modalAddGalleryButton = document.querySelector('.modal__add__gallery__button');
+const modalDeleteGalleryButton = document.querySelector('.modal__delete__gallery__button');
+const modalContentForm = document.querySelector('.modal__content__form');
+const modalContentReturnButton = document.querySelector('.modal__content__return__button');
+const modalContentCloseButton = document.querySelector('.modal__content__close__button');
+const modalForm = document.querySelector('.modal__form');
+const categoriesSelect = document.querySelector('#project__category');
+
+
+  // Ferme la modale lorsqu'on clique sur le bouton de retour
+  modalContentReturnButton.addEventListener('click', () => {
+    modalForm.style.display = 'none';
+    modalContent.style.display = 'flex';
     });
-  } catch (error) {
-    console.error(error);
-  }
+    
+    // Ferme la modale lorsqu'on clique sur le bouton de fermeture
+    modalCloseButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+    });
+    
+    // Ferme la modale lorsqu'on clique en dehors de celle-ci
+    window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+    modal.style.display = 'none';
+    }
+    });
+    
+// Fonction pour afficher la modale
+function showModal() {
+  modalContent.style.display = 'none';
+  modalContentForm.style.display = 'flex';
 }
 
+// Fonction pour fermer la modale
+function hideModal() {
+  modalContentForm.style.display = 'none';
+  modalContent.style.display = 'flex';
+}
+
+// Ferme la modale lorsque l'utilisateur clique en dehors de celle-ci
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    hideModal();
+  }
+});
+
+// Ferme la modale lorsqu'on clique sur le bouton de fermeture
+modalCloseButton.addEventListener('click', hideModal);
+
+// Ouvre la section formulaire lorsque l'utilisateur clique sur le bouton "Ajouter une photo"
+  modalAddGalleryButton.addEventListener('click', () => {
+  modalContent.style.display = 'none';
+  modalContentForm.style.display = 'flex';
+});
 
 
 
+// Retourne à la section galerie lorsque l'utilisateur clique sur le bouton "Retour"
+  modalContentReturnButton.addEventListener('click', () => {
+  modalContent.style.display = 'flex';
+  modalContentForm.style.display = 'none';
+});
 
+// Ferme la modale lorsqu'on clique sur le bouton de fermeture dans la section formulaire
+modalContentCloseButton.addEventListener('click', hideModal);
+
+
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//-----------------------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//-----------------------------------------------------------------------------------------
+  // Récupère les catégories depuis le serveur
+  fetch('http://localhost:5678/api/categories')
+  .then(response => response.json())
+  .then(categories => {
+  // Ajoute chaque catégorie comme option dans le menu déroulant
+  categories.forEach(category => {
+  const option = document.createElement('option');
+  option.value = category.id;
+  option.textContent = category.name;
+  document.getElementById('project__category').appendChild(option);
+  });
+  })
+  .catch(error => {
+  // Affiche le message d'erreur dans la console
+  console.error(error);
+  });
+  
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//-----------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//-----------------------------------------------------------------------------------------
+  // Supprime la galerie lorsqu'on clique sur le bouton correspondant
+  modalDeleteGalleryButton.addEventListener('click', () => {
+  fetch('http://localhost:5678/api/works/1', {
+  method: 'DELETE',
+  headers: {
+  'accept': '/'
+  }
+  })
+  .then(response => {
+  if (response.ok) {
+  // Si la requête a réussi, ferme la modale et recharge la page
+  modal.style.display = 'none';
+  location.reload();
+  } else {
+  // Si la requête a échoué, affiche un message d'erreur
+  throw new Error('Une erreur est survenue lors de la suppression de la galerie.');
+  }
+  })
+  .catch(error => {
+  // Affiche le message d'erreur dans la console
+  console.error(error);
+  });
+  });
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------  
+//-----------------------------------------------------------------------------------------
+// Préparation des données du nouveau projet et envoi sur l'API "http://localhost:5678/api/works".
+// Fonction d'ajout de projet.
+
+async function addWork() {
+	// Création de l'objet formData
+	const formData = new FormData();
+	
+	formData.append("image", projectPhotoFileAddInputFormModale.files[0]);
+	formData.append("title", projectTitleFormModale.value);
+	formData.append("category", projectCategoryFormModale.value);
+
+	const addResponse = await fetch("http://localhost:5678/api/works/", {
+		method: "POST",
+		headers: {
+			"Authorization": "Bearer " + authentificationToken,
+			accept: "application/json"			
+		},
+		body: formData
+	});
+
+	// Si réponse de d'ajout de l'API est OK, alors on ajoute le projet au DOM (Gallerie et Modale).
+	if (addResponse.ok) {
+		// Mise à jour du tableau "WORKS" avec les nouvelles données.
+		works.push(await addResponse.json());
+
+		returnModalButton.click();
+		// Réinitialisation du DOM (Galleries accueil et Modale).
+		const sectionGalleryModale = document.querySelector(".modal__gallery__grid");
+		const sectionGallery = document.querySelector(".gallery");
+		sectionGalleryModale.innerHTML = "";
+		sectionGallery.innerHTML = "";
+		// Regénération des Galleries.
+		generateGalleryModale(works);
+		generateGallery(works);
+
+	} else {
+		return alert("Échec de la l'ajout du projet");
+	};
+};
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------  
 //-----------------------------------------------------------------------------------------
