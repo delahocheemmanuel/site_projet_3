@@ -49,7 +49,7 @@ const formData = new FormData();
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
-fetch('http://localhost:5678/api/works')
+/*fetch('http://localhost:5678/api/works')
   .then(response => response.json())
   .then(data => {
     const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
@@ -66,47 +66,47 @@ fetch('http://localhost:5678/api/works')
   .catch(error => {
     console.error(error);
   });
+*/
 
 
-
-/*modalOpenButtonProject.addEventListener('click', () => {
+modalOpenButtonProject.addEventListener('click', () => {
     fetch('http://localhost:5678/api/works')
         .then((response) => response.json())
         .then((data) => {
+          const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
             // On boucle sur les éléments de la galerie pour les ajouter à la grille
-            data.forEach((item) => {
-                const img = document.createElement('img');
-                img.src = item.url;
-                modalGalleryGrid.appendChild(img);
-            });
+            for (const item of data) {
+              const img = document.createElement('img');
+              img.src = item.imageUrl;
+              img.alt = item.title;
+              img.dataset.id = item.id;
+              img.dataset.title = item.title;
+              img.classList.add('modal__gallery__item');
+              modalGalleryGrid.appendChild(img);
+            }
+          
 
             // On affiche la modale
             modal.style.display = 'flex';
         })
         .catch((error) => console.error(error));
-});*/
+});
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
-modalOpenButtonProject.addEventListener('click', function () {
-  modal.style.display = 'flex';
+
   
-})
+
 modalContentCloseButton.addEventListener('click', function () {
     modal.style.display = 'none';
     window.location.href = 'index.html';
 });
 
-// Ferme la modale lorsqu'on clique sur le bouton de retour
-modalContentReturnButton.addEventListener('click', () => {
-    modalForm.style.display = 'none';
-    modalContent.style.display = 'flex';
-});
-
 // Ferme la modale lorsqu'on clique sur le bouton de fermeture
 modalCloseButton.addEventListener('click', () => {
     modal.style.display = 'none';
+    window.location.href = 'index.html';
 });
 
 // Ferme la modale lorsqu'on clique en dehors de celle-ci
@@ -128,12 +128,6 @@ function hideModal() {
     modalContent.style.display = 'flex';
 }
 
-// Ferme la modale lorsque l'utilisateur clique en dehors de celle-ci
-modal.addEventListener('click', (event) => {
-    if (event.target === modal) {
-        hideModal();
-    }
-});
 
 // Ferme la modale lorsqu'on clique sur le bouton de fermeture
 modalCloseButton.addEventListener('click', hideModal);
@@ -185,36 +179,103 @@ fetch('http://localhost:5678/api/categories')
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 // Supprime la galerie lorsqu'on clique sur le bouton correspondant
+/*
 modalDeleteGalleryButton.addEventListener('click', () => {
-    fetch('http://localhost:5678/api/works/1', {
-        method: 'DELETE',
-        headers: {
-            accept: '/',
-        },
-    })
-        .then((response) => {
-            if (response.ok) {
-                // Si la requête a réussi, ferme la modale et recharge la page
-                modal.style.display = 'none';
-                location.reload();
-            } else {
-                // Si la requête a échoué, affiche un message d'erreur
-                throw new Error(
-                    'Une erreur est survenue lors de la suppression de la galerie.'
-                );
-            }
-        })
-        .catch((error) => {
-            // Affiche le message d'erreur dans la console
-            console.error(error);
-        });
+  const authentificationToken = sessionStorage.getItem('authentificationToken');
+
+  fetch('http://localhost:5678/api/works', {
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${authentificationToken}`,
+          'accept': 'application/json',
+      },
+  })
+      .then((response) => response.json())
+      .then((galleries) => {
+          galleries.forEach((gallery) => {
+              fetch(`http://localhost:5678/api/works/${gallery.id}`, {
+                  method: 'DELETE',
+                  headers: {
+                      'Authorization': `Bearer ${authentificationToken}`,
+                      'accept': '/',
+                  },
+              })
+                  .then((response) => {
+                      if (response.ok) {
+                          // Recharge le contenu de la modale seulement
+                          const modalContent = document.querySelector('.modal__content');
+                          fetch('votre url de récupération de données', {
+                              headers: {
+                                  'Authorization': `Bearer ${authentificationToken}`,
+                                  'accept': 'application/json',
+                              },
+                          })
+                              .then((response) => response.json())
+                              .then((data) => {
+                                  modalContent.innerHTML = ''; // vide le contenu précédent
+                                  // ajoute le contenu récupéré
+                                  data.forEach((gallery) => {
+                                      modalContent.innerHTML += `<div>${gallery.title}</div>`;
+                                  });
+                              })
+                              .catch((error) => {
+                                  console.error(error);
+                              });
+                      } else {
+                          throw new Error(
+                              'Une erreur est survenue lors de la suppression de la galerie.'
+                          );
+                      }
+                  })
+                  .catch((error) => {
+                      console.error(error);
+                  });
+          });
+      })
+      .catch((error) => {
+          console.error(error);
+      });
 });
+*/
+// Récupération du Token d'authentification.
+const authentificationToken = sessionStorage.getItem("authentificationToken");
+
+// Fonction de "Suppresion" de projet de la "Gallery" "Modale".
+async function deleteWork(workId) {
+	// Suppression du projet via l'API en fonction de l'ID du Projet (work.id).
+	const deleteResponse = await fetch("http://localhost:5678/api/works/" + workId, {
+		method: "DELETE",
+		headers: {
+			"Authorization": "Bearer " + authentificationToken
+		},
+	});
+
+	// Si réponse de suppression de l'API est OK, alors on supprime le projet du DOM (Gallerie et Modale).
+	if (deleteResponse.ok) {
+		const workToRemove = document.querySelectorAll(`figure[data-id="${workId}"]`);
+
+		for(let i = 0; i < workToRemove.length; i++){
+			workToRemove[i].remove();
+		};
+		// Suppression de l'élément du tableau "works" correspondant à l'ID du projet.
+		const workIndexToRemove = works.findIndex(work => workId === work.id);
+		works.splice(workIndexToRemove, 1);
+
+	} else {
+		return alert("Échec de la suppresion du projet");
+	};
+};
+
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
+
+
+
+
 // Préparation des données du nouveau projet et envoi sur l'API "http://localhost:5678/api/works".
 // Fonction d'ajout de projet.
-
+/*
 async function addWork() {
     // Création de l'objet formData
     //const formData = new FormData();
@@ -250,7 +311,7 @@ async function addWork() {
     } else {
         return alert("Échec de la l'ajout du projet");
     }
-}
+}*/
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
