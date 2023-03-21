@@ -1,8 +1,7 @@
  //-----------------------------------------------------
  //------------------EDITMODE---------------------------
  //-----------------------------------------------------
- 
- 
+
 // Récupérer tous les éléments avec la classe "edit__mode"
 const editModeElements = document.querySelectorAll('.edit__mode');
 // affichage ou non du lien id login
@@ -28,6 +27,13 @@ if (authentificationState === 'true') {
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------  
 //---------------------------------------------------------------------------------------
+const responseWorks = await fetch("http://localhost:5678/api/works");
+const works = await responseWorks.json();
+
+
+// Récupération des données "CATEGORIES" sur l'API.
+const responseCategories = await fetch("http://localhost:5678/api/categories");
+const categories = await responseCategories.json();
 
 
 
