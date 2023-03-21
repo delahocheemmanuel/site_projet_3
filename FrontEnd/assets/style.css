@@ -308,7 +308,7 @@ footer nav ul {
     justify-content: flex-end;
     margin: 2em;
 }
-#formBtn {
+#form__button {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -392,7 +392,7 @@ footer nav ul {
 }
 
 /* ----------------------------------------------------------- */
-/*  ------------------------MODALE---------------------------- */
+/*  ------------------------MODAL----------------------------- */
 /* ----------------------------------------------------------- */
 
 #modal{
@@ -452,6 +452,10 @@ footer nav ul {
 	grid-row-gap: 13px;
 	margin-top: 45px;
 }
+.modal__gallery__grid img{
+    width: 78px;
+    height:104px;
+}
 .modal__delete__gallery__button{
     background-color: #FFFEF8;
 	border: none;
@@ -498,7 +502,7 @@ border-top: 1px solid #B3B3B3;
         justify-content: center;
         flex-wrap: wrap;
     }
-    #formBtn {
+    #form__button {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);

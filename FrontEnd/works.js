@@ -1,11 +1,20 @@
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 
 
 
+
+
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 // Création du form de filtre
 const newForm = document.createElement('form');
 newForm.setAttribute('action', '#');
 newForm.setAttribute('method', 'get');
-newForm.setAttribute('id', 'formBtn');
+newForm.setAttribute('id', 'form__button');
 
 let currentDiv = document.querySelector('#portfolio');
 currentDiv.appendChild(newForm);
@@ -32,7 +41,7 @@ function newBouton(btnName, categorieId, categorieOnClick) {
   newBtn.setAttribute('data-categorie-id', categorieId);
 
   newBtn.addEventListener('click', categorieOnClick);
-  let currentForm = document.querySelector('#formBtn');
+  let currentForm = document.querySelector('#form__button');
   currentForm.appendChild(newBtn);
 
   // Gestion des événements pour changer la couleur des boutons au survol
@@ -52,14 +61,14 @@ function newBouton(btnName, categorieId, categorieOnClick) {
 
 // Définir la couleur des boutons à l'initialisation
 document
-  .querySelectorAll('#formBtn input[type="submit"]')
+  .querySelectorAll('#form__button input[type="submit"]')
   .forEach(function (btn) {
       btn.style.backgroundColor = 'white';
       btn.style.color = '#1D6154';
   });
 // Fonction pour définir le bouton actif
 function setActiveButton(activeBtn) {
-    let buttons = document.querySelectorAll('#formBtn input[type="submit"]');
+    let buttons = document.querySelectorAll('#form__button input[type="submit"]');
     buttons.forEach(function (btn) {
         btn.classList.remove('active');
         btn.style.backgroundColor = 'white';
@@ -108,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('load', function () {
   // Définir la couleur des boutons
   document
-      .querySelectorAll('#formBtn input[type="submit"]')
+      .querySelectorAll('#form__button input[type="submit"]')
       .forEach(function (btn) {
           btn.style.backgroundColor = 'white';
           btn.style.color = '#1D6154';
