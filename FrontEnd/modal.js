@@ -281,7 +281,18 @@ modalFormForm.addEventListener('submit', event => {
     alert(error.message);
   });
 });
-
+function checkFile() {
+  const fileInput = document.getElementById('project__photo__add__input');
+  const fileSize = fileInput.files[0].size;
+  const maxSize = 4 * 1024 * 1024; // 4 Mo
+  
+  if (fileSize > maxSize) {
+    document.getElementById('error').innerHTML = 'Le fichier est trop volumineux';
+    fileInput.value = ''; // effacer la sélection de fichier
+  } else {
+    document.getElementById('error').innerHTML = '';
+  }
+}
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------

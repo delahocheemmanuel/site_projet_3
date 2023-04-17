@@ -95,7 +95,8 @@
 						<i class="fa-regular fa-image project__photo__add__icon"></i>
 						
 						<label for="project__photo__add__input" id="button__add__photo">+ Ajouter photo</label>
-						<input type="file" id="project__photo__add__input" accept=".jpg,.png" required="4 Mo max">
+						<input type="file" id="project__photo__add__input" accept=".jpg,.png" required="4 Mo max"onchange="checkFile()" />
+						<p id="error"></p>
 						<p class="project__photo__add__desc">jpg, png : 4mo max</p>
 					</div>
 					<!-- les catégories se trouvent dans http://localhost:5678/api/categories -->
