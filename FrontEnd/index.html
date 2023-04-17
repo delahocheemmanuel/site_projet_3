@@ -93,19 +93,24 @@
 					<!-- image=string($binary)  title=string  category=integer($int64)  -->
 					<div class="project__photo__add">
 						<i class="fa-regular fa-image project__photo__add__icon"></i>
-						<button class="project__photo__add__button">+ Ajouter photo
-						<input type="file" name="project__photo__add__input" id="project__photo__add__input" required accept=".jpg, .png">
-						<p class="project__photo__add__desc">jpg, png : 4mo max</p></button>
+						
+						<label for="project__photo__add__input" id="button__add__photo">+ Ajouter photo</label>
+						<input type="file" id="project__photo__add__input" accept=".jpg,.png" required="4 Mo max">
+						<p class="project__photo__add__desc">jpg, png : 4mo max</p>
 					</div>
 					<!-- les catégories se trouvent dans http://localhost:5678/api/categories -->
 					<!-- [{"id":1,"name":"Objets"},{"id":2,"name":"Appartements"},{"id":3,"name":"Hotels & restaurants"}] -->
+					<div class="project__title-category">
 					<label for="project__title">Titre</label>
 					<input type="text" name="project__title" id="project__title" required>
+					</div>
+					<div class="project__title-category">
 					<label for="project__category">Catégorie</label>
 					<select name="project__category" id="project__category" required>
 						<option value=""></option>
 						<!-- Insertion des "Categories" -->
 					</select>
+					</div>
 					<hr>
 					<!-- authentification sur  http://localhost:5678/api/users/login-->
 					<button class="valid__form">Valider</button>

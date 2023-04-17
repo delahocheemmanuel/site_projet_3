@@ -428,11 +428,120 @@ footer nav ul {
 	position: absolute;
 	box-sizing: border-box;
 	width: 630px;
-	height: 730px;
+	height: 670px;
 	overflow: auto;
 	background-color: #FFFFFF;
 	color: #000000;
 	padding: 16px 20px 13px 20px;
+    border-radius: 10px;
+}
+.modal__content__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.modal__form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal__form form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    
+}
+.modal__form label{
+    font-family: 'work sans';
+    font-weight: 500;
+    font-size: 14px;
+    margin-top:20px;
+    margin-bottom: 20px;
+    border-radius: 50px;
+  
+    
+}
+.modal__form  h3{
+    font-family: 'work sans';
+    font-weight: 400;
+    font-size: 26px;
+    
+    margin-bottom: 20px;
+}
+.project__photo__add{
+    margin:auto;
+    width: 420px;
+    height: 169px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+    border-radius: 3px;
+    background-color: #E8F1F6;   
+}
+#button__add__photo{
+    font-family: 'work sans';
+    font-size: 14px;
+    font-weight: 500;
+    color: #306685;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 173px;
+    height: 36px;
+    border-radius: 50px;
+    background-color: #CBD6DC;
+}
+.project__photo__add i{
+    font-size: 58px;
+    color: #B9C5CC;
+}
+.project__photo__add__input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius:50px ;
+    background-color: #CBD6DC;
+    width: 173px;
+    height: 36PX;
+    font-size: 14px;
+    font-weight: 500;
+    color: #306685;
+    
+}
+#project__photo__add__input{
+    display: none;
+}
+
+.project__title-category{
+   display: flex;
+    flex-direction: column; 
+}
+#project__title,
+#project__category{
+    width: 420px;
+    height: 51px;
+    
+}
+.valid__form{
+    font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1d6154;
+    height: 37px;
+    width: 237px;
+    min-width: 100px;
+    height: 36px;
+    text-align: center;
+    border-radius: 60px;
+    border-style:solid;
+    border-color: #1d6154;
+    margin: auto;
 }
 .modal__close {
 	width: 100%;
@@ -466,8 +575,10 @@ footer nav ul {
 	padding: 10px 0 10px 0;
 }
 hr{
+    max-width: 420px;
 border-top: 1px solid #B3B3B3;
 }
+
 /* ----------------------------------------------------------- */
 /*  ------------------------RESPONSIVE------------------------ */
 /* ----------------------------------------------------------- */

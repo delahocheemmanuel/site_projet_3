@@ -1,36 +1,4 @@
-//-----------------------------------------------------
-//------------------EDITMODE---------------------------
-//-----------------------------------------------------
 
-// Récupérer tous les éléments avec la classe "edit__mode"
-const editModeElements = document.querySelectorAll('.edit__mode');
-//console.log('editModeElements:', editModeElements);
-
-// affichage ou non du lien id login
-const loginElement = document.querySelector('#login');
-//console.log('loginElement:', loginElement);
-
-const authentificationState = sessionStorage.getItem('authentificationState');
-//console.log('authentificationState:', authentificationState);
-
-if (authentificationState === 'true') {
-console.log('Session ouverte');
-// Pour chaque élément, changer le style pour passer de "display: none" à "display: flex"
-editModeElements.forEach((element) => {
-element.style.display = 'flex';
-loginElement.style.display = 'none';
-});
-} else {
-console.log('Session fermée');
-// Pour chaque élément, changer le style pour passer de "display: flex" à "display: none"
-editModeElements.forEach((element) => {
-element.style.display = 'none';
-});
-}
-
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 
 
 
@@ -44,43 +12,43 @@ element.style.display = 'none';
 
 // Récupération des éléments HTML
 const modal = document.querySelector('.modal');
-//console.log('modal:', modal);
+
 
 const modalContent = document.querySelector('.modal__content');
-//console.log('modalContent:', modalContent);
+
 
 const modalCloseButton = document.querySelector('.modal__close__button');
-//console.log('modalCloseButton:', modalCloseButton);
+
 
 const modalAddGalleryButton = document.querySelector('.modal__add__gallery__button');
-//console.log('modalAddGalleryButton:', modalAddGalleryButton);
+
 
 const modalDeleteGalleryButton = document.querySelector('.modal__delete__gallery__button');
-//console.log('modalDeleteGalleryButton:', modalDeleteGalleryButton);
+
 
 const modalContentForm = document.querySelector('.modal__content__form');
-//console.log('modalContentForm:', modalContentForm);
+
 
 const modalContentReturnButton = document.querySelector('.modal__content__return__button');
-//console.log('modalContentReturnButton:', modalContentReturnButton);
+
 
 const modalContentCloseButton = document.querySelector('.modal__content__close__button');
-//console.log('modalContentCloseButton:', modalContentCloseButton);
+
 
 const modalForm = document.querySelector('.modal__form');
-//console.log('modalForm:', modalForm);
+
 
 const projectCategory = document.querySelector('.project__category');
-//console.log('projectCategory:', projectCategory);
+
 
 const modalOpenButtonProject = document.getElementById('p__modif');
-//console.log('modalOpenButtonProject:', modalOpenButtonProject);
+
 
 const option = document.createElement('option');
-//console.log('option:', option);
+
 
 const formData = new FormData();
-//console.log('formData:', formData);
+
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
@@ -248,6 +216,9 @@ modalDeleteGalleryButton.addEventListener('click', () => {
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
+
+
+
 // Récupère les catégories depuis le serveur
 fetch('http://localhost:5678/api/categories')
 .then((response) => {
@@ -315,3 +286,31 @@ modalFormForm.addEventListener('submit', event => {
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
+const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
+const galleryElementModale = document.createElement("figure");	
+const imageElementModale = document.createElement("img");	
+
+		const enlargeImageButtonElementModale = document.createElement("button");
+		enlargeImageButtonElementModale.className = "enlarge-image-button-modale";
+		const enlargeImageIconeElementModale = document.createElement("i");
+		enlargeImageIconeElementModale.className = "fa-solid fa-arrows-up-down-left-right";
+		const trashButtonElementModale = document.createElement("button");
+		trashButtonElementModale.className = "trash-button-modale";
+		const trashIconeElementModale = document.createElement("i");
+		trashIconeElementModale.className = "fa-solid fa-trash-can";
+		// Ajout des écouteurs sur les "butons corbeilles" de la "Gallerie" de la "Modale" pour pouvoir supprimer des "Projets".
+	
+	
+		const buttonGalleryElementModale = document.createElement("button");
+		buttonGalleryElementModale.className = "edit-button-modale";
+		buttonGalleryElementModale.innerText = "éditer";
+		// Rattachement de la balise BUTTON à la section "modalGalleryGrid".
+		modalGalleryGrid.appendChild(galleryElementModale);
+		// Rattachement des balises IMG et FIGCAPTION à "galleryElement" (la balise FIGURE).
+		galleryElementModale.appendChild(imageElementModale);
+		galleryElementModale.appendChild(enlargeImageButtonElementModale);
+		enlargeImageButtonElementModale.appendChild(enlargeImageIconeElementModale);
+		galleryElementModale.appendChild(trashButtonElementModale);
+		trashButtonElementModale.appendChild(trashIconeElementModale);
+		galleryElementModale.appendChild(buttonGalleryElementModale);
+

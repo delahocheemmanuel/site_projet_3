@@ -52,3 +52,38 @@ sessionStorage.removeItem('authentificationToken');
 sessionStorage.removeItem('authentificationState');
 window.location.replace('login.html');
 }
+
+
+//-----------------------------------------------------
+//------------------EDITMODE---------------------------
+//-----------------------------------------------------
+
+// Récupérer tous les éléments avec la classe "edit__mode"
+const editModeElements = document.querySelectorAll('.edit__mode');
+//console.log('editModeElements:', editModeElements);
+
+// affichage ou non du lien id login
+const loginElement = document.querySelector('#login');
+//console.log('loginElement:', loginElement);
+
+const authentificationState = sessionStorage.getItem('authentificationState');
+//console.log('authentificationState:', authentificationState);
+
+if (authentificationState === 'true') {
+console.log('Session ouverte');
+// Pour chaque élément, changer le style pour passer de "display: none" à "display: flex"
+editModeElements.forEach((element) => {
+element.style.display = 'flex';
+loginElement.style.display = 'none';
+});
+} else {
+console.log('Session fermée');
+// Pour chaque élément, changer le style pour passer de "display: flex" à "display: none"
+editModeElements.forEach((element) => {
+element.style.display = 'none';
+});
+}
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
