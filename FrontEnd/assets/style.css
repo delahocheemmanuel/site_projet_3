@@ -521,6 +521,43 @@ footer nav ul {
     display: none;
     object-fit: contain;
 }
+.modal__gallery__item__container {
+    position: relative;
+  }
+  
+  .modal__gallery__item__delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 17px;
+    height: 17px;
+    background-color: black;
+    border: none;
+    font-size: 10px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+.modal__gallery__item__edit{
+    border:none;
+    background-color: transparent;
+    display:flex;
+    font-weight: 400;
+}  
+.modal__gallery__item__edit:hover{
+    color: #1D6154; 
+}
+
+.modal__gallery__item__delete:hover {
+    color: black;
+    background-color: #fff;
+  }
+  
 #project__photo__add__input{
     display: none;
 }

@@ -1,3 +1,7 @@
+//-----------------------------------------------------
+//---------------------LOGIN---------------------------
+//-----------------------------------------------------
+
 const formInfos = document.querySelector('#login');
 
 formInfos.addEventListener('submit', async function (event) {
