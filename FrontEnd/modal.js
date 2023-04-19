@@ -1,123 +1,99 @@
-
-
-
-
-
-
-
-
-
-
-
-
 // Récupération des éléments HTML
 const modal = document.querySelector('.modal');
-
-
 const modalContent = document.querySelector('.modal__content');
-
-
 const modalCloseButton = document.querySelector('.modal__close__button');
-
-
 const modalAddGalleryButton = document.querySelector('.modal__add__gallery__button');
-
-
 const modalDeleteGalleryButton = document.querySelector('.modal__delete__gallery__button');
-
-
 const modalContentForm = document.querySelector('.modal__content__form');
-
-
 const modalContentReturnButton = document.querySelector('.modal__content__return__button');
-
-
 const modalContentCloseButton = document.querySelector('.modal__content__close__button');
-
-
 const modalForm = document.querySelector('.modal__form');
-
-
 const projectCategory = document.querySelector('.project__category');
-
-
 const modalOpenButtonProject = document.getElementById('p__modif');
-
-
 const option = document.createElement('option');
-
-
 const formData = new FormData();
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 
-
 modalOpenButtonProject.addEventListener('click', () => {
-    fetch('http://localhost:5678/api/works')
-      .then((response) => response.json())
-      .then((data) => {
-        //console.log('Fetched data:', data);
-        const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
-        // On boucle sur les éléments de la galerie pour les ajouter à la grille
-        for (const item of data) {
-          const img = document.createElement('img');
-          img.src = item.imageUrl;
-          img.alt = item.title;
-          img.dataset.id = item.id;
-          img.dataset.title = item.title;
-          img.classList.add('modal__gallery__item');
-          modalGalleryGrid.appendChild(img);
-        }
-  
-        // On affiche la modale
-        //console.log('Showing modal');
-        modal.style.display = 'flex';
-      })
-      .catch((error) => console.error(error));
-  });
-  
-  //-----------------------------------------------------------------------------------------
-  //-----------------------------------------------------------------------------------------
-  //---------------------------------------------------------------------------------------
-  
-  modalContentCloseButton.addEventListener('click', function () {
-    //console.log('Closing modal and redirecting to index.html');
+  fetch('http://localhost:5678/api/works')
+    .then((response) => response.json())
+    .then((data) => {
+      const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
+      // On boucle sur les éléments de la galerie pour les ajouter à la grille
+      for (const item of data) {
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('modal__gallery__item__container');
+        imgContainer.dataset.id = item.id;
+        
+        const img = document.createElement('img');
+        img.src = item.imageUrl;
+        img.alt = item.title;
+        img.classList.add('modal__gallery__item');
+        imgContainer.appendChild(img);
+        
+        const imgActions = document.createElement('div');
+        imgActions.classList.add('modal__gallery__item__actions');
+        
+        const editButton = document.createElement('button');
+        editButton.innerText = 'Editer';
+        editButton.classList.add('modal__gallery__item__edit');
+        imgActions.appendChild(editButton);
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+        deleteButton.classList.add('modal__gallery__item__delete');
+        imgActions.appendChild(deleteButton);
+        
+        imgContainer.appendChild(imgActions);
+        
+        modalGalleryGrid.appendChild(imgContainer);
+      }
+
+      // On affiche la modale
+      modal.style.display = 'flex';
+    })
+    .catch((error) => console.error(error));
+});
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+
+modalContentCloseButton.addEventListener('click', function () {
+  modal.style.display = 'none';
+  window.location.href = 'index.html';
+});
+
+// Ferme la modale lorsqu'on clique sur le bouton de fermeture
+modalCloseButton.addEventListener('click', () => {
+  modal.style.display = 'none';
+  window.location.href = 'index.html';
+});
+
+// Ferme la modale lorsqu'on clique en dehors de celle-ci
+window.addEventListener('click', (event) => {
+  if (event.target === modal) {
     modal.style.display = 'none';
-    window.location.href = 'index.html';
-  });
-  
-  // Ferme la modale lorsqu'on clique sur le bouton de fermeture
-  modalCloseButton.addEventListener('click', () => {
-    //console.log('Closing modal and redirecting to index.html');
-    modal.style.display = 'none';
-    window.location.href = 'index.html';
-  });
-  
-  // Ferme la modale lorsqu'on clique en dehors de celle-ci
-  window.addEventListener('click', (event) => {
-    if (event.target === modal) {
-      //console.log('Closing modal');
-      modal.style.display = 'none';
-    }
-  });
-  
-  // Fonction pour afficher la modale
-  function showModal() {
-    //console.log('Showing modal form');
-    modalContent.style.display = 'none';
-    modalContentForm.style.display = 'flex';
   }
-  
-  // Fonction pour fermer la modale
-  function hideModal() {
-    //console.log('Closing modal form');
-    modalContentForm.style.display = 'none';
-    modalContent.style.display = 'flex';
-  }
-  
-  // Ferme la modale lorsqu'on clique sur le bouton de fermeture
+});
+
+// Fonction pour afficher la modale
+function showModal() {
+  modalContent.style.display = 'none';
+  modalContentForm.style.display = 'flex';
+}
+
+// Fonction pour fermer la modale
+function hideModal() {
+  modalContentForm.style.display = 'none';
+  modalContent.style.display = 'flex';
+}
+
+// Ferme la modale lorsqu'on clique sur le bouton de fermeture
+
   modalCloseButton.addEventListener('click', hideModal);
   
   // Ouvre la section formulaire lorsque l'utilisateur clique sur le bouton "Ajouter une photo"
@@ -138,22 +114,12 @@ modalOpenButtonProject.addEventListener('click', () => {
   modalContentCloseButton.addEventListener('click', hideModal);
   
 
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 // Supprime la galerie lorsqu'on clique sur le bouton correspondant
 modalDeleteGalleryButton.addEventListener('click', () => {
     const authentificationToken = sessionStorage.getItem('authentificationToken');
@@ -238,6 +204,7 @@ document.getElementById('project__category').appendChild(option);
 console.error(error);
 });
 
+
 const modalFormForm = document.querySelector('.modal__form form');
 const photoInput = document.querySelector('#project__photo__add__input');
 const titleInput = document.querySelector('#project__title');
@@ -281,47 +248,69 @@ modalFormForm.addEventListener('submit', event => {
     alert(error.message);
   });
 });
+
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------- 
+//ajout de la fonction checkFile() pour limiter la taille du fichier à 4Mo
 function checkFile() {
   const fileInput = document.getElementById('project__photo__add__input');
   const fileSize = fileInput.files[0].size;
   const maxSize = 4 * 1024 * 1024; // 4 Mo
-  
+  const errorMessage = document.getElementById('error');
+  const previewImage = document.querySelector('.preview__image');
+  const addPhotoIcon = document.querySelector('.project__photo__add__icon');
+  const addPhotoDesc = document.querySelector('.project__photo__add__desc');
+  const addPhotoButton = document.querySelector('#button__add__photo');
+
   if (fileSize > maxSize) {
-    document.getElementById('error').innerHTML = 'Le fichier est trop volumineux';
+    errorMessage.innerHTML = 'Le fichier est trop volumineux';
     fileInput.value = ''; // effacer la sélection de fichier
   } else {
-    document.getElementById('error').innerHTML = '';
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      previewImage.src = event.target.result;
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+    errorMessage.innerHTML = '';
+    addPhotoIcon.style.display = 'none'; // masquer l'icône de la caméra
+    previewImage.style.display = 'block'; // afficher l'image de prévisualisation
+    addPhotoDesc.style.display = 'none'; // masquer la description
+    addPhotoButton.style.display = 'none'; // masquer le bouton d'ajout de photo
   }
 }
 
+
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
+
+// Définir la grille de la galerie
 const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
-const galleryElementModale = document.createElement("figure");	
-const imageElementModale = document.createElement("img");	
 
-		const enlargeImageButtonElementModale = document.createElement("button");
-		enlargeImageButtonElementModale.className = "enlarge-image-button-modale";
-		const enlargeImageIconeElementModale = document.createElement("i");
-		enlargeImageIconeElementModale.className = "fa-solid fa-arrows-up-down-left-right";
-		const trashButtonElementModale = document.createElement("button");
-		trashButtonElementModale.className = "trash-button-modale";
-		const trashIconeElementModale = document.createElement("i");
-		trashIconeElementModale.className = "fa-solid fa-trash-can";
-		// Ajout des écouteurs sur les "butons corbeilles" de la "Gallerie" de la "Modale" pour pouvoir supprimer des "Projets".
-	
-	
-		const buttonGalleryElementModale = document.createElement("button");
-		buttonGalleryElementModale.className = "edit-button-modale";
-		buttonGalleryElementModale.innerText = "éditer";
-		// Rattachement de la balise BUTTON à la section "modalGalleryGrid".
-		modalGalleryGrid.appendChild(galleryElementModale);
-		// Rattachement des balises IMG et FIGCAPTION à "galleryElement" (la balise FIGURE).
-		galleryElementModale.appendChild(imageElementModale);
-		galleryElementModale.appendChild(enlargeImageButtonElementModale);
-		enlargeImageButtonElementModale.appendChild(enlargeImageIconeElementModale);
-		galleryElementModale.appendChild(trashButtonElementModale);
-		trashButtonElementModale.appendChild(trashIconeElementModale);
-		galleryElementModale.appendChild(buttonGalleryElementModale);
+// Fonction pour créer un bouton
+function createButton(className, text, iconClassName, clickHandler) {
+  const button = document.createElement('button');
+  button.className = className;
 
+  if (text) {
+    button.innerText = text;
+  }
+
+  if (iconClassName) {
+    const icon = document.createElement('i');
+    icon.className = iconClassName;
+    button.appendChild(icon);
+  }
+
+  if (clickHandler) {
+    button.addEventListener('click', clickHandler);
+  }
+
+  return button;
+}
+
+
+
+    
+    

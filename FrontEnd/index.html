@@ -66,7 +66,7 @@
 			</div>
 			<!-- Gallerie  édition charge la gallerie qui se trouve dans http://localhost:5678/api/works-->
 			<div class="modal__gallery">
-				<h3>Galerie photo</h3>
+				<h3 class="modal__gallery__title">Galerie photo</h3>
 				<div class="modal__gallery__grid"></div>
 			</div>
 			<!-- ouvre  modal__form-->
@@ -84,7 +84,7 @@
 				<!-- Bouton pour fermer la modale -->
 				<button class="modal__content__close__button"><i class="fa-solid fa-xmark"></i></button>
 			</div>
-			<hr>
+			<hr class="line">
 			<div class="modal__form">
 				<h3>Ajout photo</h3>
 				<!-- Formulaire "Ajout de projet"-->
@@ -93,7 +93,7 @@
 					<!-- image=string($binary)  title=string  category=integer($int64)  -->
 					<div class="project__photo__add">
 						<i class="fa-regular fa-image project__photo__add__icon"></i>
-						
+						<img class="preview__image">
 						<label for="project__photo__add__input" id="button__add__photo">+ Ajouter photo</label>
 						<input type="file" id="project__photo__add__input" accept=".jpg,.png" required="4 Mo max"onchange="checkFile()" />
 						<p id="error"></p>
@@ -112,7 +112,7 @@
 						<!-- Insertion des "Categories" -->
 					</select>
 					</div>
-					<hr>
+					<hr class="line">
 					<!-- authentification sur  http://localhost:5678/api/users/login-->
 					<button class="valid__form">Valider</button>
 				</form>
