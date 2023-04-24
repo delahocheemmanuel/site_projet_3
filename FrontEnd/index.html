@@ -71,7 +71,7 @@
 			</div>
 			<!-- ouvre  modal__form-->
 			<input class="modal__add__gallery__button"type="submit" value="Ajouter une photo">
-			<br>
+			
 			<!-- suprimme les element de la gallery  de modal__gallery__grid -->
 			<!-- curl -X 'DELETE' \'http://localhost:5678/api/works/1' \-H 'accept: */*' -->
 			<button class="modal__delete__gallery__button">Supprimer la galerie</button>
@@ -103,11 +103,11 @@
 					<!-- [{"id":1,"name":"Objets"},{"id":2,"name":"Appartements"},{"id":3,"name":"Hotels & restaurants"}] -->
 					<div class="project__title-category">
 					<label for="project__title">Titre</label>
-					<input type="text" name="project__title" id="project__title" required>
+					<input type="text" name="title" id="project__title" required>
 					</div>
 					<div class="project__title-category">
 					<label for="project__category">Catégorie</label>
-					<select name="project__category" id="project__category" required>
+					<select name="category" id="project__category" required>
 						<option value=""></option>
 						<!-- Insertion des "Categories" -->
 					</select>

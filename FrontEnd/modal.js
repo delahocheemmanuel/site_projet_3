@@ -17,48 +17,93 @@ const formData = new FormData();
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 
-modalOpenButtonProject.addEventListener('click', () => {
-  fetch('http://localhost:5678/api/works')
-    .then((response) => response.json())
-    .then((data) => {
-      const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
-      modalGalleryGrid.innerHTML = '';
-      
-      // On boucle sur les éléments de la galerie pour les ajouter à la grille
-      for (const item of data) {
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('modal__gallery__item__container');
-        imgContainer.dataset.id = item.id;
-        
-        const img = document.createElement('img');
-        img.src = item.imageUrl;
-        img.alt = item.title;
-        img.classList.add('modal__gallery__item');
-        imgContainer.appendChild(img);
-        
-        const imgActions = document.createElement('div');
-        imgActions.classList.add('modal__gallery__item__actions');
-        
-        const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-        deleteButton.classList.add('modal__gallery__item__delete');
-        imgActions.appendChild(deleteButton);
+modalOpenButtonProject.addEventListener('click', async () => {
+  try {
+    const response = await fetch('http://localhost:5678/api/works');
+    const data = await response.json();
+    const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
+    modalGalleryGrid.innerHTML = '';
 
-        const editButton = document.createElement('button');
-        editButton.innerText = 'éditer';
-        editButton.classList.add('modal__gallery__item__edit');
-        imgActions.appendChild(editButton);
-        
-        imgContainer.appendChild(imgActions);
-        
-        modalGalleryGrid.appendChild(imgContainer);
-      }
+    // On boucle sur les éléments de la galerie pour les ajouter à la grille
+    for (const item of data) {
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('modal__gallery__item__container');
+      imgContainer.dataset.id = item.id;
+      console.log(item.id);
 
-      // On affiche la modale
-      modal.style.display = 'flex';
-    })
-    .catch((error) => console.error(error));
+      const img = document.createElement('img');
+      img.src = item.imageUrl;
+      img.alt = item.title;
+      img.classList.add('modal__gallery__item');
+      imgContainer.appendChild(img);
+
+      const imgActions = document.createElement('div');
+      imgActions.classList.add('modal__gallery__item__actions');
+
+      const deleteButton = document.createElement('button');
+      deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+      deleteButton.classList.add('modal__gallery__item__delete');
+      deleteButton.setAttribute("data-image-id", item.id);
+
+      deleteButton.addEventListener('click', async (event) => {
+        console.log('Clic sur le bouton supprimer');
+        const authentificationToken = sessionStorage.getItem('authentificationToken');
+        const imageId = event.target.dataset.imageId;
+        try {
+          await deleteImage(imageId, authentificationToken);
+          console.log('Image supprimée avec succès');
+          // Supprime l'image du DOM
+          event.target.closest('.modal__gallery__item__container').remove();
+        } catch (error) {
+          console.error(error);
+        }
+      });
+
+      imgActions.appendChild(deleteButton);
+
+
+      const editButton = document.createElement('p');
+      editButton.innerText = 'éditer';
+      editButton.classList.add('modal__gallery__item__edit');
+      imgActions.appendChild(editButton);
+
+      imgContainer.appendChild(imgActions);
+
+      modalGalleryGrid.appendChild(imgContainer);
+    }
+
+    // On affiche la modale
+    modal.style.display = 'flex';
+  } catch (error) {
+    console.error(error);
+  }
 });
+
+
+// Fonction pour supprimer une image
+async function deleteImage(imageId, authentificationToken) {
+  
+  if (!imageId) {
+    throw new Error('L\'identifiant de l\'image n\'est pas défini.');
+  }
+
+  const response = await fetch(`http://localhost:5678/api/works/${imageId}`,  {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${authentificationToken}`,
+      'accept': '/',
+    },
+    
+  });
+  if (!response.ok) {
+    throw new Error('Une erreur est survenue lors de la suppression de l\'image.');
+  }
+}
+
+
+
+
+
 
 
 
@@ -119,10 +164,6 @@ function hideModal() {
   
   // Ferme la modale lorsqu'on clique sur le bouton de fermeture dans la section formulaire
   modalContentCloseButton.addEventListener('click', hideModal);
-  
-
-
-
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
@@ -180,24 +221,6 @@ modalDeleteGalleryButton.addEventListener('click', async () => {
     console.error(error);
   }
 });
-
-// Supprime une image lorsqu'on clique sur le bouton correspondant
-const deleteButtons = document.querySelectorAll('.modal__gallery__item__delete');
-deleteButtons.forEach((button) => {
-  button.addEventListener('click', async (event) => {
-    const authentificationToken = sessionStorage.getItem('authentificationToken');
-    const imageContainer = event.target.closest('.modal__gallery__item__container');
-    const imageId = imageContainer.dataset.id;
-    try {
-      await deleteGallery(imageId, authentificationToken);
-      console.log('Image supprimée avec succès');
-      imageContainer.remove();
-    } catch (error) {
-      console.error(error);
-    }
-  });
-});
-
 
 
 
@@ -304,29 +327,3 @@ function checkFile() {
 // Définir la grille de la galerie
 const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
 
-// Fonction pour créer un bouton
-function createButton(className, text, iconClassName, clickHandler) {
-  const button = document.createElement('button');
-  button.className = className;
-
-  if (text) {
-    button.innerText = text;
-  }
-
-  if (iconClassName) {
-    const icon = document.createElement('i');
-    icon.className = iconClassName;
-    button.appendChild(icon);
-  }
-
-  if (clickHandler) {
-    button.addEventListener('click', clickHandler);
-  }
-
-  return button;
-}
-
-
-
-    
-    
