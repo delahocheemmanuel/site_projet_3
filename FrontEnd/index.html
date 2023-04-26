@@ -69,8 +69,9 @@
 				<h3 class="modal__gallery__title">Galerie photo</h3>
 				<div class="modal__gallery__grid"></div>
 			</div>
+			<hr class="line">
 			<!-- ouvre  modal__form-->
-			<input class="modal__add__gallery__button"type="submit" value="Ajouter une photo">
+			<input id="modal__add__gallery__button" class="modal__add__gallery__button"type="submit" value="Ajouter une photo">
 			
 			<!-- suprimme les element de la gallery  de modal__gallery__grid -->
 			<!-- curl -X 'DELETE' \'http://localhost:5678/api/works/1' \-H 'accept: */*' -->
@@ -84,7 +85,7 @@
 				<!-- Bouton pour fermer la modale -->
 				<button class="modal__content__close__button"><i class="fa-solid fa-xmark"></i></button>
 			</div>
-			<hr class="line">
+			
 			<div class="modal__form">
 				<h3>Ajout photo</h3>
 				<!-- Formulaire "Ajout de projet"-->
@@ -92,7 +93,7 @@
 					<!-- l'ajout se fait par un POST  http://localhost:5678/api/works-->
 					<!-- image=string($binary)  title=string  category=integer($int64)  -->
 					<div class="project__photo__add">
-						<i class="fa-regular fa-image project__photo__add__icon"></i>
+						<i class="fa-sharp fa-regular fa-image project__photo__add__icon"></i>
 						<img class="preview__image">
 						<label for="project__photo__add__input" id="button__add__photo">+ Ajouter photo</label>
 						<input type="file" id="project__photo__add__input" accept=".jpg,.png" required="4 Mo max"onchange="checkFile()" />

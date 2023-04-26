@@ -6,23 +6,19 @@ newForm.setAttribute('id', 'form__button');
 
 let currentDiv = document.querySelector('#portfolio');
 currentDiv.appendChild(newForm);
-//console.log('New form created and added to currentDiv:', newForm);
 
 // Suppression de la gallery #portfolio
 const galerie = document.querySelector('#portfolio .gallery');
 galerie.remove();
-//console.log('Gallery removed:', galerie);
 
 // Création de la nouvelle gallery
 const portfolioBox = document.querySelector('#portfolio');
 newDiv = document.createElement('article');
 portfolioBox.appendChild(newDiv);
-//console.log('New article element created and added to portfolioBox:', newDiv);
 
 // Application de la class gallery
 const newGalerie = document.querySelector('#portfolio article');
 newGalerie.classList.add('gallery');
-//console.log('New class gallery added to the article element:', newGalerie);
 
 // Fonction pour créer des boutons de catégories
 function newBouton(btnName, categorieId, categorieOnClick) {
@@ -57,7 +53,6 @@ document
     .forEach(function (btn) {
         btn.style.backgroundColor = 'white';
         btn.style.color = '#1D6154';
-        //console.log(`Button ${btn.getAttribute('data-categorie-id')} initialized with background color: ${btn.style.backgroundColor} and text color: ${btn.style.color}`);
     });
 
 // Fonction pour définir le bouton actif
@@ -69,12 +64,10 @@ function setActiveButton(activeBtn) {
         btn.classList.remove('active');
         btn.style.backgroundColor = 'white';
         btn.style.color = '#1D6154';
-        //console.log(`Button ${btn.getAttribute('data-categorie-id')} removed active class and background color: ${btn.style.backgroundColor} and text color: ${btn.style.color}`);
     });
     activeBtn.classList.add('active');
     activeBtn.style.backgroundColor = '#1D6154';
     activeBtn.style.color = 'white';
-    //console.log(`Button ${activeBtn.getAttribute('data-categorie-id')} set to active with background color: ${activeBtn.style.backgroundColor} and text color: ${activeBtn.style.color}`);
 }
 
 // Charger les boutons de catégories
@@ -84,7 +77,6 @@ fetch('http://localhost:5678/api/categories')
     })
     .then(function (value) {
         const entries = value.length;
-        //console.log(`Fetched ${entries} categories`);
 
         for (let n = 0; n < entries; n++) {
             let cateName = value[n].name;
@@ -103,7 +95,7 @@ newBouton('Tous', '', categorieOnClick);
 function categorieOnClick(e) {
     e.preventDefault();
     let categorieDataId = e.target.getAttribute('data-categorie-id');
-    //console.log(`Selected category ID: ${categorieDataId}`);
+
     loadGallery(categorieDataId);
     setActiveButton(e.target);
 }
@@ -111,7 +103,6 @@ function categorieOnClick(e) {
 // Charger la galerie au chargement de la page
 document.addEventListener('DOMContentLoaded', function () {
     loadGallery('');
-    //console.log('Gallery loaded at page load');
 });
 window.addEventListener('load', function () {
     // Définir la couleur des boutons
@@ -120,7 +111,6 @@ window.addEventListener('load', function () {
         .forEach(function (btn) {
             btn.style.backgroundColor = 'white';
             btn.style.color = '#1D6154';
-            //console.log('Button style set:', btn.style);
         });
 });
 
@@ -135,7 +125,7 @@ async function loadGallery(categorieId) {
         })
         .then(function (value) {
             const entries = value.length;
-            //console.log(`Number of entries: ${entries}`);
+            
             // clean  gallery
             newGalerie.innerHTML = '';
             for (let n = 0; n < entries; n++) {
@@ -143,10 +133,7 @@ async function loadGallery(categorieId) {
                 let imgUrl = value[n].imageUrl;
                 let imgName = value[n].title;
                 let imgCatId = value[n].category.id;
-                //console.log(`Image ID: ${imgId}`);
-                //console.log(`Image URL: ${imgUrl}`);
-                //console.log(`Image Name: ${imgName}`);
-                //console.log(`Image Category ID: ${imgCatId}`);
+                
 
                 categorieId == imgCatId || !categorieId
                     ? newFigure(imgUrl, imgName, imgId)
@@ -185,6 +172,4 @@ function newFigure(imgUrl, imgTitle, imgId) {
 
     newFigCap.innerHTML += imgTitle;
     newFigCap.setAttribute('data-id', imgId);
-
-    //console.log(`New image added to the gallery - ID: ${imgId}, URL: ${imgUrl}, Title: ${imgTitle}`);
 }

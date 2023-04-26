@@ -11,7 +11,7 @@ event.preventDefault();
 const email = document.querySelector('#email').value;
 const password = document.querySelector('#password').value;
 const userInfos = { email, password };
-//console.log('userInfos :', userInfos);
+
 
 // Envoi de ces informations sur l'API "LOGIN"
 const authentificationInfos = await fetch(
@@ -22,17 +22,16 @@ headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify(userInfos),
 }
 );
-//console.log('authentificationInfos :', authentificationInfos);
+
 
 // Récupération de la réponse et traduction
 const authentificationResponse = await authentificationInfos.json();
-//console.log('authentificationResponse :', authentificationResponse);
+
 
 // Stockage du TOKEN du User identifié et de l'état de l'authentification
 const authentificationToken = authentificationResponse.token;
 const authentificationState = authentificationInfos.ok;
-//console.log('authentificationToken :', authentificationToken);
-//console.log('authentificationState :', authentificationState);
+
 
 // Retour conditionnel en fonction de l'authentification et stockage des données dans le "sessionStorage".
 if (authentificationState === true) {
@@ -46,8 +45,8 @@ const wrongUserNotification = document.querySelector(
 '.wrong-user-notification'
 );
 wrongUserNotification.innerText =
-"Nom d'utilisateur ou mot de passe incorrect.";
-//console.log('authentification échouée');
+"“Erreur dans l\’identifiant ou le mot de passe”";
+
 }
 });
 
@@ -74,14 +73,14 @@ const authentificationState = sessionStorage.getItem('authentificationState');
 //console.log('authentificationState:', authentificationState);
 
 if (authentificationState === 'true') {
-console.log('Session ouverte');
+//console.log('Session ouverte');
 // Pour chaque élément, changer le style pour passer de "display: none" à "display: flex"
 editModeElements.forEach((element) => {
 element.style.display = 'flex';
 loginElement.style.display = 'none';
 });
 } else {
-console.log('Session fermée');
+//console.log('Session fermée');
 // Pour chaque élément, changer le style pour passer de "display: flex" à "display: none"
 editModeElements.forEach((element) => {
 element.style.display = 'none';

@@ -299,7 +299,7 @@ input[type='submit'] {
     min-width: 100px;
     text-align: center;
     border-radius: 60px;
-    border-style:solid;
+    border-style: solid;
     border-color: #1d6154;
 }
 
@@ -320,11 +320,10 @@ footer nav ul {
 /*  -----------------------EDITMODE--------------------------- */
 /* ----------------------------------------------------------- */
 .edit__mode {
-	display:none;
+    display: none;
 }
 
 #header__edit {
-    
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -335,12 +334,10 @@ footer nav ul {
     margin-bottom: 49px;
 }
 #edit {
-    
     gap: 9px;
 }
 #header__edit {
     color: white;
-
 }
 
 #i__modif {
@@ -368,7 +365,7 @@ footer nav ul {
 }
 #p__modif {
     grid-column-start: 4;
-    
+
     gap: 10px;
 }
 .p__modif i {
@@ -388,57 +385,70 @@ footer nav ul {
     margin-left: 21px;
 }
 
-#logout {
-}
+
 
 /* ----------------------------------------------------------- */
 /*  ------------------------MODAL----------------------------- */
 /* ----------------------------------------------------------- */
 
-#modal{
+#modal {
     display: none;
-	align-items: center;
-	justify-content: center;
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
-    
-  }
-  .modal__content {
-	display:flex;
-	flex-direction: column;
-	align-items: center;
-	position: absolute;
-	box-sizing: border-box;
-	width: 630px;
-	height: 730px;
-	overflow: auto;
-	background-color: #FFFFFF;
-	color: #000000;
-	padding: 16px 20px 13px 20px;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    box-sizing: border-box;
+    width: 630px;
+    height: auto;
+    overflow: auto;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 16px 20px 13px 20px;
+    border-radius: 10px;
 }
 .modal__content__form {
-	display:none;
-	flex-direction: column;
-	align-items: center;
-	position: absolute;
-	box-sizing: border-box;
-	width: 630px;
-	height: 670px;
-	overflow: auto;
-	background-color: #FFFFFF;
-	color: #000000;
-	padding: 16px 20px 13px 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    box-sizing: border-box;
+    width: 630px;
+    height: 670px;
+    overflow: auto;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 16px 20px 13px 20px;
     border-radius: 10px;
 }
 .modal__content__buttons {
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+.modal__close__button{
+    border:none;
+    background-color: transparent;
+    font-size: 12px;
+}
+
+.modal__content__return__button {
+    border:none;
+    background-color: transparent;
+}
+.modal__content__close__button{
+    border:none;
+    background-color: transparent;
 }
 .modal__form {
     width: 100%;
@@ -447,43 +457,31 @@ footer nav ul {
     flex-direction: column;
     align-items: center;
 }
-.modal__form form{
+.modal__form form {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items:center;
-    
+    align-items: center;
 }
-.modal__form label{
+.modal__form label {
     font-family: 'work sans';
     font-weight: 500;
     font-size: 14px;
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 50px;
-  
-    
 }
-.modal__form  h3{
+.modal__form h3 {
     font-family: 'work sans';
     font-weight: 400;
     font-size: 26px;
-    
+
     margin-bottom: 20px;
 }
-.project__photo__add{
-    margin:auto;
-    width: 420px;
-    height: 169px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:space-around;
-    border-radius: 3px;
-    background-color: #E8F1F6;   
-}
-#button__add__photo{
+
+    
+#button__add__photo {
     font-family: 'work sans';
     font-size: 14px;
     font-weight: 500;
@@ -494,38 +492,87 @@ footer nav ul {
     width: 173px;
     height: 36px;
     border-radius: 50px;
-    background-color: #CBD6DC;
+    background-color: #cbd6dc;
 }
-.project__photo__add i{
+.project__photo__add i {
     font-size: 58px;
-    color: #B9C5CC;
+    color: #b9c5cc;
 }
-.project__photo__add__input{
+.project__photo__add__input {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius:50px ;
-    background-color: #CBD6DC;
+    border-radius: 50px;
+    background-color: #cbd6dc;
     width: 173px;
-    height: 36PX;
+    height: 36px;
     font-size: 14px;
     font-weight: 500;
-    color: #306685; 
+    color: #306685;
 }
-.preview__image{
-    width: 420px;
-    height: 169px;
-    border-radius: 3px;
-    background-color: #E8F1F6;
-    display: none;
-    object-fit: contain;
+
+.modal__close {
+    width: 100%;
+    text-align: end;
+}
+.modal__gallery {
+    width: 75%;
+    text-align: center;
+    
+    height: auto;
+}
+.modal__gallery__title {
+    font-family: 'Work sans';
+    font-size: 26px;
+    font-weight: 400;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+.modal__gallery__grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 7px;
+    grid-row-gap: 13px;
+    margin:auto;
+}
+.modal__gallery__grid img {
+    width: 78px;
+    height: 104px;
+}
+#modal__add__gallery__button {
+    font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1d6154;
+    height: 37px;
+    max-width: 237px;
+    min-width: 100px;
+    text-align: center;
+    border-radius: 60px;
+    border-style: solid;
+    border-color: #1d6154;
+    margin:auto;
+    
+}
+.modal__delete__gallery__button {
+    background-color: #fffef8;
+    border: none;
+    font-family: 'Work sans';
+    font-size: 14px;
+    margin-top: 23px;
+    margin:auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 .modal__gallery__item__container {
     position: relative;
-  }
-  
-  .modal__gallery__item__delete {
+}
+
+.modal__gallery__item__delete {
     position: absolute;
     top: 0;
     right: 0;
@@ -542,104 +589,88 @@ footer nav ul {
     justify-content: center;
     margin-top: 5px;
     margin-right: 5px;
-  }
-.modal__gallery__item__edit{
-    border:none;
+}
+.modal__gallery__item__edit {
+    border: none;
     background-color: transparent;
-    display:flex;
+    display: flex;
     font-weight: 400;
-}  
-.modal__gallery__item__edit:hover{
-    color: #1D6154; 
+}
+.modal__gallery__item__edit:hover {
+    color: #1d6154;
 }
 
 .modal__gallery__item__delete:hover {
     color: black;
     background-color: #fff;
-  }
-  
-#project__photo__add__input{
+}
+.preview__image {
+    
+    height: 169px;
+    border-radius: 3px;
+    background-color: #e8f1f6;
+    display: none;
+    object-fit: contain;
+}
+.project__photo__add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 3px;
+    background-color: #e8f1f6;
+    margin: auto;
+    max-width: 420px;
+    height: 169px;
+    border-radius: 3px;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+#project__photo__add__input {
     display: none;
 }
-.project__photo__add__desc p{
-    display:flex;
+.project__photo__add__desc p {
+    display: flex;
 }
-.project__title-category{
-   display: flex;
-    flex-direction: column; 
+.project__title-category {
+    display: flex;
+    flex-direction: column;
 }
 #project__title,
-#project__category{
-    width: 420px;
+#project__category {
+    min-width: 420px;
     height: 51px;
-    
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    border: none;
 }
-.valid__form{
+.line {
+    border: none;
+    border-top: 1px solid #b3b3b3;
+    text-align: center;
+    width: 75%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.valid__form {
     font-family: 'Syne';
     font-weight: 700;
     color: white;
-    background-color: #1d6154;
+    background-color: #cbd6dc;
     height: 37px;
     width: 237px;
     min-width: 100px;
     height: 36px;
     text-align: center;
     border-radius: 60px;
-    border-style:solid;
-    border-color: #1d6154;
-    margin: auto;
-}
-.modal__close {
-	width: 100%;
-	text-align: end;
-}  
-.modal__gallery {
-	width: 75%;
-	text-align: center;
-	height: auto;
-}
-.modal__gallery__title {
-    font-family: "Work sans";
-    font-size: 26px;
-    font-weight: 400;
-    margin-top: 20px;
-}
-.modal__gallery__grid {
-	width: 100%;
-	height: 400px;
-	display: grid;
-    /* flex-wrap:wrap; */
-    /* justify-content:center; */
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 7px;
-	grid-row-gap: 13px;
-	margin-top: 45px;
-}
-.modal__gallery__grid img{
-    width: 78px;
-    height:104px;
-}
-.modal__delete__gallery__button{
-    background-color: #FFFEF8;
-	border: none;
-	font-family: "Work sans";
-	font-size: 14px;
-	padding: 10px 0 10px 0;
-}
-.line{
-    max-width: 420px;
-    border: none;
-    height: 1px;
-    border-color: #000000;
-    margin-top: 20px;
-    position: relative; /* Nécessaire pour utiliser z-index */
-    z-index: 1; /* Met le trait en premier plan */
+    border-style: solid;
+    border-color: #cbd6dc;
+    margin:auto;
 }
 
 /* ----------------------------------------------------------- */
 /*  ------------------------RESPONSIVE------------------------ */
 /* ----------------------------------------------------------- */
-@media (max-width: 800px) {
+@media (max-width: 700px) {
     h1 {
         margin-bottom: 20px;
     }
@@ -651,9 +682,11 @@ footer nav ul {
         justify-content: center;
         gap: 10px;
     }
-    .modal__content , .modal__content__form{
+    .modal__content,
+    .modal__content__form {
         width: 90%;
-        height: 80%;
+        max-height: 100%;
+        box-sizing: border-box;
     }
     #introduction {
         flex-direction: column;
@@ -690,5 +723,16 @@ footer nav ul {
     .gallery figure {
         max-width: 500px;
         max-height: 100%;
+    }
+    #project__title,
+    #project__category {
+    min-width: 300px;
+}
+    .modal__content__form{
+        padding: 16px 20px 13px 20px;
+    }
+    .project__photo__add{
+        max-width: 300px;
+        padding: 0px 50px 0px 50px;
     }
 }

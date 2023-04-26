@@ -144,6 +144,7 @@ a {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	
 }
 #contact input[type='submit'] {
     padding: 0px 10px 0px 10px;
@@ -182,6 +183,9 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+.wrong-user-notification{
+	margin: auto;
 }
 footer {	
 	display: flex;	
