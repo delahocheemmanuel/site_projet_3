@@ -145,10 +145,7 @@ async function loadGallery(categorieId) {
         });
 }
 
-// Affichage galery
-window.onload = function () {
-    loadGallery();
-};
+
 
 /**
  * creation portfolio

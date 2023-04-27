@@ -16,78 +16,80 @@ const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+modalOpenButtonProject.addEventListener('click', openModal);
 
-modalOpenButtonProject.addEventListener('click', async () => {
+async function openModal() {
+  try {
+    const response = await fetch('http://localhost:5678/api/works');
+    const data = await response.json();
+    const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
+    modalGalleryGrid.innerHTML = '';
+
+    // On boucle sur les éléments de la galerie pour les ajouter à la grille
+    for (const item of data) {
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('modal__gallery__item__container');
+      imgContainer.dataset.id = item.id;
+
+      const img = document.createElement('img');
+      img.src = item.imageUrl;
+      img.alt = item.title;
+      img.classList.add('modal__gallery__item');
+      imgContainer.appendChild(img);
+
+      const imgActions = document.createElement('div');
+      imgActions.classList.add('modal__gallery__item__actions');
+
+      const deleteButton = document.createElement('button');
+      deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+      deleteButton.classList.add('modal__gallery__item__delete');
+      deleteButton.setAttribute('data-image-id', item.id);
+
+        const imageId = deleteButton.dataset.imageId;
+deleteButton.addEventListener('click', async (event) => {
+    //console.log('Clic sur le bouton supprimer');
+    const authentificationToken = sessionStorage.getItem(
+        'authentificationToken'
+    );
+
+    //console.log(imageId);
+    if (!imageId) {
+        console.error("L'identifiant de l'image n'est pas défini.");
+        return;
+    }
     try {
-        const response = await fetch('http://localhost:5678/api/works');
-        const data = await response.json();
-        const modalGalleryGrid = document.querySelector(
-            '.modal__gallery__grid'
-        );
-        modalGalleryGrid.innerHTML = '';
+        await deleteImage(imageId, authentificationToken);
+        console.log('Image supprimée avec succès');
+        // Supprime l'image du DOM
+        event.target.remove();
 
-        // On boucle sur les éléments de la galerie pour les ajouter à la grille
-        for (const item of data) {
-            const imgContainer = document.createElement('div');
-            imgContainer.classList.add('modal__gallery__item__container');
-            imgContainer.dataset.id = item.id;
-            //console.log(item.id);
-
-            const img = document.createElement('img');
-            img.src = item.imageUrl;
-            img.alt = item.title;
-            img.classList.add('modal__gallery__item');
-            imgContainer.appendChild(img);
-
-            const imgActions = document.createElement('div');
-            imgActions.classList.add('modal__gallery__item__actions');
-
-            const deleteButton = document.createElement('button');
-            deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-            deleteButton.classList.add('modal__gallery__item__delete');
-            deleteButton.setAttribute('data-image-id', item.id);
-
-            const imageId = deleteButton.dataset.imageId;
-            //console.log(imageId);
-            deleteButton.addEventListener('click', async (event) => {
-                //console.log('Clic sur le bouton supprimer');
-                const authentificationToken = sessionStorage.getItem(
-                    'authentificationToken'
-                );
-
-                //console.log(imageId);
-                if (!imageId) {
-                    console.error("L'identifiant de l'image n'est pas défini.");
-                    return;
-                }
-                try {
-                    await deleteImage(imageId, authentificationToken);
-                    //console.log('Image supprimée avec succès');
-                    // Supprime l'image du DOM
-                    event.target.remove();
-                } catch (error) {
-                    console.error(error);
-                }
-            });
-
-            imgActions.appendChild(deleteButton);
-
-            const editButton = document.createElement('p');
-            editButton.innerText = 'éditer';
-            editButton.classList.add('modal__gallery__item__edit');
-            imgActions.appendChild(editButton);
-
-            imgContainer.appendChild(imgActions);
-
-            modalGalleryGrid.appendChild(imgContainer);
-        }
-
-        // On affiche la modale
-        modal.style.display = 'flex';
+        // Rouvrir la modale
+        openModal();
     } catch (error) {
         console.error(error);
     }
 });
+      ;
+
+      imgActions.appendChild(deleteButton);
+
+      const editButton = document.createElement('p');
+      editButton.innerText = 'éditer';
+      editButton.classList.add('modal__gallery__item__edit');
+      imgActions.appendChild(editButton);
+
+      imgContainer.appendChild(imgActions);
+
+      modalGalleryGrid.appendChild(imgContainer);
+    }
+
+    // On affiche la modale
+    modal.style.display = 'flex';
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 modalContentCloseButton.addEventListener('click', function () {
     modal.style.display = 'none';
@@ -162,6 +164,7 @@ async function deleteImage(imageId, authentificationToken) {
     }
 }
 
+
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
@@ -218,7 +221,11 @@ modalFormForm.addEventListener('submit', (event) => {
             // Afficher un message de succès ou d'erreur
             if (response.ok) {
                 //alert('Le projet a été ajouté avec succès!');
-                //modalFormForm.reset();
+                
+                modalContentForm.style.display = 'none';
+                modalContent.style.display = 'flex';
+                openModal();
+                
             } else {
                 throw new Error('Une erreur est survenue.');
             }
@@ -226,6 +233,7 @@ modalFormForm.addEventListener('submit', (event) => {
         .catch((error) => {
             alert(error.message);
         });
+    
 });
 
 //-----------------------------------------------------------------------------------------
@@ -262,7 +270,7 @@ function checkFile() {
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
-/*
+
 // Fonction pour supprimer une galerie
 async function deleteGallery(galleryId, authentificationToken) {
     const response = await fetch(
@@ -282,21 +290,6 @@ async function deleteGallery(galleryId, authentificationToken) {
     }
 }
 
-// Fonction pour récupérer les données et mettre à jour la modale
-async function updateModalContent(authentificationToken, modalContent) {
-    const response = await fetch('votre url de récupération de données', {
-        headers: {
-            Authorization: `Bearer ${authentificationToken}`,
-            
-        },
-    });
-    const data = await response.json();
-    modalContent.innerHTML = ''; // vide le contenu précédent
-    // ajoute le contenu récupéré
-    data.forEach((gallery) => {
-        modalContent.innerHTML += `<div>${gallery.title}</div>`;
-    });
-}
 
 // Supprime la galerie lorsqu'on clique sur le bouton correspondant
 modalDeleteGalleryButton.addEventListener('click', async () => {
@@ -317,10 +310,9 @@ modalDeleteGalleryButton.addEventListener('click', async () => {
         }
         console.log('Galeries supprimées avec succès');
         // Recharge le contenu de la modale seulement
-        const modalContent = document.querySelector('.modal__content');
-        await updateModalContent(authentificationToken, modalContent);
+        
+        await openModal();
     } catch (error) {
         console.error(error);
     }
 });
-*/

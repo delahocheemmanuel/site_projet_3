@@ -37,8 +37,9 @@ const authentificationState = authentificationInfos.ok;
 if (authentificationState === true) {
 sessionStorage.setItem('authentificationToken', authentificationToken);
 sessionStorage.setItem('authentificationState', authentificationState);
-//console.log('authentification réussie');
 window.location.replace('index.html');
+//console.log('authentification réussie');
+
 } else {
 sessionStorage.setItem('authentificationState', authentificationState);
 const wrongUserNotification = document.querySelector(
