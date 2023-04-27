@@ -221,7 +221,7 @@ modalFormForm.addEventListener('submit', (event) => {
             // Afficher un message de succès ou d'erreur
             if (response.ok) {
                 //alert('Le projet a été ajouté avec succès!');
-                
+                modalFormForm.reset();
                 modalContentForm.style.display = 'none';
                 modalContent.style.display = 'flex';
                 openModal();
