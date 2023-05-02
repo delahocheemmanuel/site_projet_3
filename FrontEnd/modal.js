@@ -2,11 +2,19 @@
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
 const modalCloseButton = document.querySelector('.modal__close__button');
-const modalAddGalleryButton = document.querySelector(   '.modal__add__gallery__button');
-const modalDeleteGalleryButton = document.querySelector('.modal__delete__gallery__button');
+const modalAddGalleryButton = document.querySelector(
+    '.modal__add__gallery__button'
+);
+const modalDeleteGalleryButton = document.querySelector(
+    '.modal__delete__gallery__button'
+);
 const modalContentForm = document.querySelector('.modal__content__form');
-const modalContentReturnButton = document.querySelector('.modal__content__return__button');
-const modalContentCloseButton = document.querySelector('.modal__content__close__button');
+const modalContentReturnButton = document.querySelector(
+    '.modal__content__return__button'
+);
+const modalContentCloseButton = document.querySelector(
+    '.modal__content__close__button'
+);
 const modalForm = document.querySelector('.modal__form');
 const projectCategory = document.querySelector('.project__category');
 const modalOpenButtonProject = document.querySelector('#p__modif');
@@ -19,77 +27,76 @@ const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
 modalOpenButtonProject.addEventListener('click', openModal);
 
 async function openModal() {
-  try {
-    const response = await fetch('http://localhost:5678/api/works');
-    const data = await response.json();
-    const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
-    modalGalleryGrid.innerHTML = '';
-
-    // On boucle sur les éléments de la galerie pour les ajouter à la grille
-    for (const item of data) {
-      const imgContainer = document.createElement('div');
-      imgContainer.classList.add('modal__gallery__item__container');
-      imgContainer.dataset.id = item.id;
-
-      const img = document.createElement('img');
-      img.src = item.imageUrl;
-      img.alt = item.title;
-      img.classList.add('modal__gallery__item');
-      imgContainer.appendChild(img);
-
-      const imgActions = document.createElement('div');
-      imgActions.classList.add('modal__gallery__item__actions');
-
-      const deleteButton = document.createElement('button');
-      deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
-      deleteButton.classList.add('modal__gallery__item__delete');
-      deleteButton.setAttribute('data-image-id', item.id);
-
-        const imageId = deleteButton.dataset.imageId;
-deleteButton.addEventListener('click', async (event) => {
-    //console.log('Clic sur le bouton supprimer');
-    const authentificationToken = sessionStorage.getItem(
-        'authentificationToken'
-    );
-
-    //console.log(imageId);
-    if (!imageId) {
-        console.error("L'identifiant de l'image n'est pas défini.");
-        return;
-    }
     try {
-        await deleteImage(imageId, authentificationToken);
-        console.log('Image supprimée avec succès');
-        // Supprime l'image du DOM
-        event.target.remove();
+        const response = await fetch('http://localhost:5678/api/works');
+        const data = await response.json();
+        const modalGalleryGrid = document.querySelector(
+            '.modal__gallery__grid'
+        );
+        modalGalleryGrid.innerHTML = '';
 
-        // Rouvrir la modale
-        openModal();
+        // On boucle sur les éléments de la galerie pour les ajouter à la grille
+        for (const item of data) {
+            const imgContainer = document.createElement('div');
+            imgContainer.classList.add('modal__gallery__item__container');
+            imgContainer.dataset.id = item.id;
+
+            const img = document.createElement('img');
+            img.src = item.imageUrl;
+            img.alt = item.title;
+            img.classList.add('modal__gallery__item');
+            imgContainer.appendChild(img);
+
+            const imgActions = document.createElement('div');
+            imgActions.classList.add('modal__gallery__item__actions');
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            deleteButton.classList.add('modal__gallery__item__delete');
+            deleteButton.setAttribute('data-image-id', item.id);
+
+            const imageId = deleteButton.dataset.imageId;
+            deleteButton.addEventListener('click', async (event) => {
+                //console.log('Clic sur le bouton supprimer');
+                const authentificationToken = sessionStorage.getItem(
+                    'authentificationToken'
+                );
+
+                //console.log(imageId);
+                if (!imageId) {
+                    console.error("L'identifiant de l'image n'est pas défini.");
+                    return;
+                }
+                try {
+                    await deleteImage(imageId, authentificationToken);
+                    console.log('Image supprimée avec succès');
+                    // Supprime l'image du DOM
+                    event.target.remove();
+
+                    // Rouvrir la modale
+                    openModal();
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+            imgActions.appendChild(deleteButton);
+
+            const editButton = document.createElement('p');
+            editButton.innerText = 'éditer';
+            editButton.classList.add('modal__gallery__item__edit');
+            imgActions.appendChild(editButton);
+
+            imgContainer.appendChild(imgActions);
+
+            modalGalleryGrid.appendChild(imgContainer);
+        }
+
+        // On affiche la modale
+        modal.style.display = 'flex';
     } catch (error) {
         console.error(error);
     }
-});
-      ;
-
-      imgActions.appendChild(deleteButton);
-
-      const editButton = document.createElement('p');
-      editButton.innerText = 'éditer';
-      editButton.classList.add('modal__gallery__item__edit');
-      imgActions.appendChild(editButton);
-
-      imgContainer.appendChild(imgActions);
-
-      modalGalleryGrid.appendChild(imgContainer);
-    }
-
-    // On affiche la modale
-    modal.style.display = 'flex';
-  } catch (error) {
-    console.error(error);
-  }
 }
-
 
 modalContentCloseButton.addEventListener('click', function () {
     modal.style.display = 'none';
@@ -164,7 +171,6 @@ async function deleteImage(imageId, authentificationToken) {
     }
 }
 
-
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
@@ -188,57 +194,6 @@ fetch('http://localhost:5678/api/categories')
         console.error(error);
     });
 
-const modalFormForm = document.querySelector('.modal__form form');
-const photoInput = document.querySelector('#project__photo__add__input');
-const titleInput = document.querySelector('#project__title');
-const categoryInput = document.querySelector('#project__category');
-const categoryURL = 'http://localhost:5678/api/categories';
-const worksURL = 'http://localhost:5678/api/works';
-const loginURL = 'http://localhost:5678/api/users/login';
-
-// Envoyer le formulaire
-modalFormForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const authentificationToken = sessionStorage.getItem(
-        'authentificationToken'
-    );
-
-    // Créer une instance FormData pour envoyer les données du formulaire
-    const formData = new FormData(modalFormForm);
-
-    // Ajouter le fichier sélectionné pour la photo
-    formData.append('image', photoInput.files[0]);
-
-    // Envoyer les données avec une requête POST à l'API
-    fetch(worksURL, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            Authorization: `Bearer ${authentificationToken}`,
-        },
-    })
-        .then((response) => {
-            // Afficher un message de succès ou d'erreur
-            if (response.ok) {
-                //alert('Le projet a été ajouté avec succès!');
-                modalFormForm.reset();
-                modalContentForm.style.display = 'none';
-                modalContent.style.display = 'flex';
-                openModal();
-                
-            } else {
-                throw new Error('Une erreur est survenue.');
-            }
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
-    
-});
-
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 //ajout de la fonction checkFile() pour limiter la taille du fichier à 4Mo
 function checkFile() {
     const fileInput = document.getElementById('project__photo__add__input');
@@ -266,6 +221,80 @@ function checkFile() {
         addPhotoButton.style.display = 'none'; // masquer le bouton d'ajout de photo
     }
 }
+const previewImage = document.querySelector('.preview__image');
+const addPhotoIcon = document.querySelector('.project__photo__add__icon');
+const addPhotoDesc = document.querySelector('.project__photo__add__desc');
+const addPhotoButton = document.querySelector('#button__add__photo');
+const modalFormForm = document.querySelector('.modal__form form');
+const photoInput = document.querySelector('#project__photo__add__input');
+const titleInput = document.querySelector('#project__title');
+const categoryInput = document.querySelector('#project__category');
+const categoryURL = 'http://localhost:5678/api/categories';
+const worksURL = 'http://localhost:5678/api/works';
+const loginURL = 'http://localhost:5678/api/users/login';
+const projetPhotoAdd = document.querySelector('#project__photo__add');
+const validForm = document.querySelector('#valid__form');
+
+
+// confirmation de la validité du formulaire avec le changement de couleur du bouton
+function formValid() {
+  if (titleInput.value !== "" && categoryInput.checkValidity()&& photoInput.checkValidity()) {
+    validForm.style.backgroundColor = '#1D6154';
+    validForm.style.borderColor = '#1D6154';
+  } else {
+    validForm.style.backgroundColor = "";
+  }
+}
+
+titleInput.addEventListener("input", formValid);
+categoryInput.addEventListener("input", formValid);
+
+
+
+
+
+// Envoyer le formulaire
+modalFormForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const authentificationToken = sessionStorage.getItem(
+        'authentificationToken'
+    );
+
+    // Créer une instance FormData pour envoyer les données du formulaire
+    const formData = new FormData(modalFormForm);
+
+    // Ajouter le fichier sélectionné pour la photo
+    formData.append('image', photoInput.files[0]);
+
+    // Envoyer les données avec une requête POST à l'API
+    fetch(worksURL, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Authorization: `Bearer ${authentificationToken}`,
+        },
+    })
+        .then((response) => {
+            // Afficher un message de succès ou d'erreur
+            if (response.ok) {
+                //alert('Le projet a été ajouté avec succès!');
+                modalFormForm.reset();
+                addPhotoIcon.style.display = 'block';
+                previewImage.style.display = 'none';
+                addPhotoDesc.style.display = 'block';
+                addPhotoButton.style.display = 'flex';
+                modalContentForm.style.display = 'none';
+                modalContent.style.display = 'flex';
+                openModal();
+            } else {
+                throw new Error('Une erreur est survenue.');
+            }
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+});
+
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
@@ -278,7 +307,6 @@ async function deleteGallery(galleryId, authentificationToken) {
         {
             method: 'DELETE',
             headers: {
-                
                 Authorization: `Bearer ${authentificationToken}`,
             },
         }
@@ -290,8 +318,7 @@ async function deleteGallery(galleryId, authentificationToken) {
     }
 }
 
-
-// Supprime la galerie lorsqu'on clique sur le bouton correspondant
+// Supprime la galerie et ses fichiers lorsqu'on clique sur le bouton correspondant
 modalDeleteGalleryButton.addEventListener('click', async () => {
     const authentificationToken = sessionStorage.getItem(
         'authentificationToken'
@@ -301,16 +328,15 @@ modalDeleteGalleryButton.addEventListener('click', async () => {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${authentificationToken}`,
-                
             },
         });
         const galleries = await response.json();
         for (const gallery of galleries) {
+            // Supprime la galerie
             await deleteGallery(gallery.id, authentificationToken);
         }
         console.log('Galeries supprimées avec succès');
         // Recharge le contenu de la modale seulement
-        
         await openModal();
     } catch (error) {
         console.error(error);

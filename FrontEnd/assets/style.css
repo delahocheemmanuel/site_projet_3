@@ -651,7 +651,7 @@ footer nav ul {
     margin-top: 40px;
     margin-bottom: 40px;
 }
-.valid__form {
+#valid__form {
     font-family: 'Syne';
     font-weight: 700;
     color: white;
@@ -666,6 +666,7 @@ footer nav ul {
     border-color: #cbd6dc;
     margin:auto;
 }
+
 
 /* ----------------------------------------------------------- */
 /*  ------------------------RESPONSIVE------------------------ */

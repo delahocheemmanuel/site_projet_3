@@ -48,6 +48,7 @@ function newBouton(btnName, categorieId, categorieOnClick) {
 }
 
 // Définir la couleur des boutons à l'initialisation
+
 document
     .querySelectorAll('#form__button input[type="submit"]')
     .forEach(function (btn) {
@@ -71,11 +72,10 @@ function setActiveButton(activeBtn) {
 }
 
 // Charger les boutons de catégories
-fetch('http://localhost:5678/api/categories')
-    .then(function (res) {
-        return res.json();
-    })
-    .then(function (value) {
+async function loadCategories() {
+    try {
+        const res = await fetch('http://localhost:5678/api/categories');
+        const value = await res.json();
         const entries = value.length;
 
         for (let n = 0; n < entries; n++) {
@@ -83,10 +83,12 @@ fetch('http://localhost:5678/api/categories')
             let categorieId = value[n].id;
             newBouton(cateName, categorieId, categorieOnClick);
         }
-    })
-    .catch(function (err) {
+    } catch (err) {
         console.log(err);
-    });
+    }
+}
+
+loadCategories();
 
 // Bouton pour afficher toutes les catégories
 newBouton('Tous', '', categorieOnClick);
@@ -104,6 +106,7 @@ function categorieOnClick(e) {
 document.addEventListener('DOMContentLoaded', function () {
     loadGallery('');
 });
+
 window.addEventListener('load', function () {
     // Définir la couleur des boutons
     document
@@ -114,10 +117,11 @@ window.addEventListener('load', function () {
         });
 });
 
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+// chargement de la gallerie
 async function loadGallery(categorieId) {
     await fetch('http://localhost:5678/api/works')
         .then(function (res) {
@@ -125,7 +129,7 @@ async function loadGallery(categorieId) {
         })
         .then(function (value) {
             const entries = value.length;
-            
+
             // clean  gallery
             newGalerie.innerHTML = '';
             for (let n = 0; n < entries; n++) {
@@ -133,7 +137,6 @@ async function loadGallery(categorieId) {
                 let imgUrl = value[n].imageUrl;
                 let imgName = value[n].title;
                 let imgCatId = value[n].category.id;
-                
 
                 categorieId == imgCatId || !categorieId
                     ? newFigure(imgUrl, imgName, imgId)
@@ -144,8 +147,6 @@ async function loadGallery(categorieId) {
             console.log(err);
         });
 }
-
-
 
 /**
  * creation portfolio
