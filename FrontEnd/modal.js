@@ -2,19 +2,11 @@
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal__content');
 const modalCloseButton = document.querySelector('.modal__close__button');
-const modalAddGalleryButton = document.querySelector(
-    '.modal__add__gallery__button'
-);
-const modalDeleteGalleryButton = document.querySelector(
-    '.modal__delete__gallery__button'
-);
+const modalAddGalleryButton = document.querySelector('.modal__add__gallery__button');
+const modalDeleteGalleryButton = document.querySelector('.modal__delete__gallery__button');
 const modalContentForm = document.querySelector('.modal__content__form');
-const modalContentReturnButton = document.querySelector(
-    '.modal__content__return__button'
-);
-const modalContentCloseButton = document.querySelector(
-    '.modal__content__close__button'
-);
+const modalContentReturnButton = document.querySelector('.modal__content__return__button');
+const modalContentCloseButton = document.querySelector('.modal__content__close__button');
 const modalForm = document.querySelector('.modal__form');
 const projectCategory = document.querySelector('.project__category');
 const modalOpenButtonProject = document.querySelector('#p__modif');
@@ -24,6 +16,7 @@ const modalGalleryGrid = document.querySelector('.modal__gallery__grid');
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+//ouverture de la modale
 modalOpenButtonProject.addEventListener('click', openModal);
 
 async function openModal() {
@@ -57,12 +50,10 @@ async function openModal() {
 
             const imageId = deleteButton.dataset.imageId;
             deleteButton.addEventListener('click', async (event) => {
-                //console.log('Clic sur le bouton supprimer');
                 const authentificationToken = sessionStorage.getItem(
                     'authentificationToken'
                 );
 
-                //console.log(imageId);
                 if (!imageId) {
                     console.error("L'identifiant de l'image n'est pas défini.");
                     return;
@@ -196,7 +187,7 @@ fetch('http://localhost:5678/api/categories')
 
 //ajout de la fonction checkFile() pour limiter la taille du fichier à 4Mo
 function checkFile() {
-    const fileInput = document.getElementById('project__photo__add__input');
+    const photoInput = document.getElementById('project__photo__add__input');
     const fileSize = fileInput.files[0].size;
     const maxSize = 4 * 1024 * 1024; // 4 Mo
     const errorMessage = document.getElementById('error');
@@ -207,7 +198,7 @@ function checkFile() {
 
     if (fileSize > maxSize) {
         errorMessage.innerHTML = 'Le fichier est trop volumineux';
-        fileInput.value = ''; // effacer la sélection de fichier
+        photoInput.value = ''; // effacer la sélection de fichier
     } else {
         const reader = new FileReader();
         reader.onload = function (event) {
@@ -215,7 +206,7 @@ function checkFile() {
         };
         reader.readAsDataURL(fileInput.files[0]);
         errorMessage.innerHTML = '';
-        addPhotoIcon.style.display = 'none'; // masquer l'icône de la caméra
+        addPhotoIcon.style.display = 'none'; // masquer l'icône de la photo
         previewImage.style.display = 'block'; // afficher l'image de prévisualisation
         addPhotoDesc.style.display = 'none'; // masquer la description
         addPhotoButton.style.display = 'none'; // masquer le bouton d'ajout de photo
@@ -235,23 +226,22 @@ const loginURL = 'http://localhost:5678/api/users/login';
 const projetPhotoAdd = document.querySelector('#project__photo__add');
 const validForm = document.querySelector('#valid__form');
 
-
 // confirmation de la validité du formulaire avec le changement de couleur du bouton
 function formValid() {
-  if (titleInput.value !== "" && categoryInput.checkValidity()&& photoInput.checkValidity()) {
-    validForm.style.backgroundColor = '#1D6154';
-    validForm.style.borderColor = '#1D6154';
-  } else {
-    validForm.style.backgroundColor = "";
-  }
+    if (
+        titleInput.value !== '' &&
+        categoryInput.checkValidity() &&
+        photoInput.checkValidity()
+    ) {
+        validForm.style.backgroundColor = '#1D6154';
+        validForm.style.borderColor = '#1D6154';
+    } else {
+        validForm.style.backgroundColor = '';
+    }
 }
 
-titleInput.addEventListener("input", formValid);
-categoryInput.addEventListener("input", formValid);
-
-
-
-
+titleInput.addEventListener('input', formValid);
+categoryInput.addEventListener('input', formValid);
 
 // Envoyer le formulaire
 modalFormForm.addEventListener('submit', (event) => {
@@ -294,7 +284,6 @@ modalFormForm.addEventListener('submit', (event) => {
             alert(error.message);
         });
 });
-
 
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
