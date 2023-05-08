@@ -188,7 +188,7 @@ fetch('http://localhost:5678/api/categories')
 //ajout de la fonction checkFile() pour limiter la taille du fichier à 4Mo
 function checkFile() {
     const photoInput = document.getElementById('project__photo__add__input');
-    const fileSize = fileInput.files[0].size;
+    const photoSize = photoInput.files[0].size;
     const maxSize = 4 * 1024 * 1024; // 4 Mo
     const errorMessage = document.getElementById('error');
     const previewImage = document.querySelector('.preview__image');
@@ -196,7 +196,7 @@ function checkFile() {
     const addPhotoDesc = document.querySelector('.project__photo__add__desc');
     const addPhotoButton = document.querySelector('#button__add__photo');
 
-    if (fileSize > maxSize) {
+    if (photoSize > maxSize) {
         errorMessage.innerHTML = 'Le fichier est trop volumineux';
         photoInput.value = ''; // effacer la sélection de fichier
     } else {
@@ -204,7 +204,7 @@ function checkFile() {
         reader.onload = function (event) {
             previewImage.src = event.target.result;
         };
-        reader.readAsDataURL(fileInput.files[0]);
+        reader.readAsDataURL(photoInput.files[0]);
         errorMessage.innerHTML = '';
         addPhotoIcon.style.display = 'none'; // masquer l'icône de la photo
         previewImage.style.display = 'block'; // afficher l'image de prévisualisation
